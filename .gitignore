@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -141,3 +142,96 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+=======
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# Memedictions - Local demo only
+.local-demo/
+demo-authority.json
+*.local-keypair.json
+# Dependencies
+node_modules/
+
+# Rust / Anchor / Solana build artifacts
+target/
+.anchor/
+
+# Local validator data
+test-ledger/
+*-ledger/
+
+# Local development backups
+backups/
+
+# Vercel local metadata
+.vercel/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Old/manual backup files
+*.backup
+*.backup.*
+*.backup-*
+README.backup.md
+Anchor.toml.backup-before-v1-upgrade
+
+# Internal/local Memedictions environments - not part of public hackathon deployment
+app/api/demo/
+app/api/v2/
+
+app/devnet/
+app/devnet-v2/
+app/devnet-v2-2/
+app/v2/
+
+# Local oracle/debug tooling
+Scripts/localnet-v2-2-oracle-probe.cjs
+
+# Root debug utilities not needed in public deployment
+debug-pda.cjs
+
+# Internal API environments
+app/api/devnet/
+app/api/devnet-v2/
+app/api/devnet-v2-2/
+
+# Legacy/local API routes not used by public /test
+app/api/prediction/
+app/api/predictions/
+app/api/results/
+app/api/round/
+app/api/rounds/
+
+# Localnet scripts
+Scripts/localnet-*
+
+# Rust editor/manual saves
+*.save
+*.save.*
+
+# Legacy UI components not used by public hackathon build
+components/
+
+# Contracts/IDLs not part of the public Hackathon release
+lib/idl/memedictions_contract.json
+lib/idl/memedictions_v2.json
+
+programs/memedictions/
+programs/memedictions_v2_2/
+>>>>>>> ca5552d (Prepare Memedictions Hackathon Testnet release)
