@@ -1,5 +1,20 @@
 "use client";
 
+import WalletStandardPanel from "./wallet-standard-panel";
+
+import {
+  useConnectedWallet,
+} from "@solana/kit-plugin-wallet/react";
+
+import {
+  useClient,
+} from "@solana/react";
+
+import {
+  testSolanaClient,
+} from "@/lib/solana/test-client";
+
+
 import {
 
   useEffect,
@@ -26,10 +41,8 @@ import {
 } from "buffer";
 
 import {
-
-  phantom,
-
-} from "@/lib/devnet-prediction";
+  getTransactionCodec,
+} from "@solana/transactions";
 
 const DEVNET_RPC =
   "https://api.devnet.solana.com";
@@ -241,6 +254,20 @@ function activeRoundStorageKey(
 
 export default function DevnetPage() {
 
+  const walletClient =
+    useClient<typeof testSolanaClient>();
+
+  const connectedWallet =
+    useConnectedWallet(walletClient);
+
+  const [pageMounted, setPageMounted] =
+    useState(false);
+
+  useEffect(() => {
+    setPageMounted(true);
+  }, []);
+
+
   const [programDeployed, setProgramDeployed] = useState(false);
 
   useEffect(() => {
@@ -322,14 +349,6 @@ export default function DevnetPage() {
     balanceLoading,
 
     setBalanceLoading,
-
-  ] = useState(false);
-
-  const [
-
-    connecting,
-
-    setConnecting,
 
   ] = useState(false);
 
@@ -945,14 +964,11 @@ export default function DevnetPage() {
     addressOverride?: string
   ) {
 
-    const provider =
-      phantom();
-
     const address =
       typeof addressOverride === "string"
         ? addressOverride
-        : walletAddress ||
-          provider?.publicKey?.toBase58();
+        : connectedWallet?.account.address ||
+          walletAddress;
 
     if (!address) {
       setBalance(null);
@@ -1029,173 +1045,6 @@ export default function DevnetPage() {
 
    * ===================================
 
-   * CONECTAR PHANTOM
-
-   * ===================================
-
-   */
-
-  async function connectWallet() {
-
-    try {
-
-      setConnecting(
-
-        true
-
-      );
-
-      setMessage("");
-
-      setErrorMessage("");
-
-      const provider =
-
-        phantom();
-
-      if (!provider) {
-
-        throw new Error(
-
-          "Phantom no está disponible en este navegador."
-
-        );
-
-      }
-
-      const result =
-
-        await provider.connect();
-
-      const address =
-
-        result.publicKey
-
-          .toBase58();
-
-      setWalletAddress(
-
-        address
-
-      );
-
-      setMessage(
-
-        "Wallet conectada correctamente."
-
-      );
-
-      await loadBalance(address);
-
-    } catch (error) {
-
-      console.error(
-
-        "V2_DEVNET_CONNECT_ERROR",
-
-        error
-
-      );
-
-      setErrorMessage(
-
-        error instanceof Error
-
-          ? error.message
-
-          : "No se pudo conectar Phantom."
-
-      );
-
-    } finally {
-
-      setConnecting(
-
-        false
-
-      );
-
-    }
-
-  }
-
-  /*
-
-   * ===================================
-
-   * DESCONECTAR
-
-   * ===================================
-
-   */
-
-  async function disconnectWallet() {
-
-    try {
-
-      const provider =
-
-        phantom();
-
-      if (provider) {
-
-        await provider.disconnect();
-
-      }
-
-      setWalletAddress("");
-
-      setBalance(null);
-
-      // La ronda pertenece al estado de Memedictions,
-      // no a la sesión de una wallet concreta.
-      // No borramos roundAddress, roundId ni closingTime
-      // al cambiar de usuario.
-
-      setPredictionAddress("");
-
-      setPredictionSignature("");
-
-      // El resultado pertenece a la ronda,
-      // no a la wallet conectada.
-      // Se conserva al cambiar de usuario.
-
-      setMessage(
-
-        "Phantom desconectado."
-
-      );
-
-      setErrorMessage("");
-
-    } catch (error) {
-
-      console.error(
-
-        "V2_DEVNET_DISCONNECT_ERROR",
-
-        error
-
-      );
-
-      setErrorMessage(
-
-        error instanceof Error
-
-          ? error.message
-
-          : "No se pudo desconectar Phantom."
-
-      );
-
-    }
-
-  }
-
-  /*
-
-   * ===================================
-
    * CREAR RONDA
 
    * ===================================
@@ -1204,63 +1053,45 @@ export default function DevnetPage() {
 
   async function createRound() {
 
-    const provider =
+    console.log(
+      "MEMEDICTIONS_CREATE_ROUND_CLICKED",
+      {
+        connectedWallet: Boolean(connectedWallet),
+        walletAddress,
+        balance,
+        market,
+        durationSeconds,
+        openingPrice,
+      }
+    );
 
-      phantom();
-
-    if (!provider) {
+    if (!connectedWallet) {
       setErrorMessage(
-        "Phantom no está disponible en este navegador."
+        "Conecta una wallet compatible primero."
       );
       return;
     }
 
-    let authorityAddress = "";
-
-    /*
-     * Revalidamos la sesión antes de preparar
-     * una transacción. Phantom puede conservar
-     * publicKey aunque la sesión de firma haya
-     * quedado inactiva.
-     */
-    try {
-      const session =
-        await provider.connect();
-
-      if (!session.publicKey) {
-        throw new Error(
-          "Phantom no devolvió una wallet activa."
-        );
-      }
-
-      const activeAddress =
-        session.publicKey.toBase58();
-
-      authorityAddress =
-        activeAddress;
-
-      if (
-        walletAddress !== activeAddress
-      ) {
-        setWalletAddress(
-          activeAddress
-        );
-
-        await loadBalance(
-          activeAddress
-        );
-      }
-    } catch (error) {
-      console.error(
-        "V2_DEVNET_PHANTOM_SESSION_ERROR",
-        error
-      );
-
+    if (!connectedWallet.signer) {
       setErrorMessage(
-        "No se pudo confirmar la sesión de Phantom. Vuelve a intentarlo."
+        "La wallet conectada no permite firmar transacciones."
+      );
+      return;
+    }
+
+    const authorityAddress =
+      connectedWallet.account.address;
+
+    if (
+      walletAddress !== authorityAddress
+    ) {
+      setWalletAddress(
+        authorityAddress
       );
 
-      return;
+      await loadBalance(
+        authorityAddress
+      );
     }
 
     if (
@@ -1364,6 +1195,16 @@ export default function DevnetPage() {
 
         true
 
+      );
+
+      console.log(
+        "MEMEDICTIONS_BEFORE_ROUND_PREPARE",
+        {
+          authorityAddress,
+          market,
+          durationSeconds,
+          openingPrice,
+        }
       );
 
       const prepareResponse =
@@ -1559,30 +1400,9 @@ export default function DevnetPage() {
 
   async function signPreparedRound() {
 
-    const provider =
-      phantom();
-
-    if (!provider) {
+    if (!connectedWallet) {
       setErrorMessage(
-        "Phantom no está disponible."
-      );
-      return;
-    }
-
-    if (
-      !provider.publicKey
-    ) {
-      setErrorMessage(
-        "Conecta Phantom primero."
-      );
-      return;
-    }
-
-    if (
-      !provider.signAndSendTransaction
-    ) {
-      setErrorMessage(
-        "Esta versión de Phantom no permite firmar y enviar la transacción."
+        "Conecta una wallet compatible primero."
       );
       return;
     }
@@ -1600,38 +1420,112 @@ export default function DevnetPage() {
       setErrorMessage("");
       setRoundSending(true);
 
-      const transaction =
-        Transaction.from(
-          Buffer.from(
-            preparedRound.transaction,
-            "base64"
-          )
+      if (!connectedWallet.signer) {
+        throw new Error(
+          "La wallet conectada no tiene un signer disponible."
+        );
+      }
+
+      if (
+        !(
+          "modifyAndSignTransactions"
+          in connectedWallet.signer
+        )
+      ) {
+        throw new Error(
+          "La wallet conectada no soporta firma de transacciones."
+        );
+      }
+
+      const transactionBytes =
+        Buffer.from(
+          preparedRound.transaction,
+          "base64"
+        );
+
+      const transactionCodec =
+        getTransactionCodec();
+
+      const kitTransaction =
+        transactionCodec.decode(
+          transactionBytes
         );
 
       console.log(
-        "V2_DEVNET_ROUND_REQUESTING_PHANTOM_SIGN_AND_SEND"
+        "V2_DEVNET_ROUND_REQUESTING_WALLET_STANDARD_SIGNATURE",
+        {
+          wallet:
+            connectedWallet.wallet.name,
+          authority:
+            connectedWallet.account.address,
+        }
       );
 
-      const result =
-        await provider
-          .signAndSendTransaction(
-            transaction
-          );
+      const signedTransactions =
+        await connectedWallet.signer
+          .modifyAndSignTransactions([
+            kitTransaction,
+          ]);
+
+      const signedTransaction =
+        signedTransactions[0];
+
+      if (!signedTransaction) {
+        throw new Error(
+          "La wallet no devolvió una transacción firmada."
+        );
+      }
+
+      const signedTransactionBytes =
+        transactionCodec.encode(
+          signedTransaction
+        );
+
+      const signedTransactionBase64 =
+        Buffer.from(
+          signedTransactionBytes
+        ).toString("base64");
+
+      const sendResponse =
+        await fetch(
+          "/api/test/round/send",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify({
+              transaction:
+                signedTransactionBase64,
+              blockhash:
+                preparedRound.blockhash,
+              lastValidBlockHeight:
+                preparedRound
+                  .lastValidBlockHeight,
+            }),
+          }
+        );
+
+      const sent: SendRoundResponse =
+        await sendResponse.json();
 
       if (
-        !result ||
-        !result.signature
+        !sendResponse.ok ||
+        !sent.ok ||
+        !sent.signature
       ) {
         throw new Error(
-          "Phantom no devolvió una firma de transacción."
+          sent.error ||
+          "No se pudo enviar la ronda firmada a Devnet."
         );
       }
 
       console.log(
-        "V2_DEVNET_ROUND_PHANTOM_SENT",
+        "V2_DEVNET_ROUND_WALLET_STANDARD_SENT",
         {
           signature:
-            result.signature,
+            sent.signature,
           roundAddress:
             preparedRound.roundAddress,
         }
@@ -1643,9 +1537,13 @@ export default function DevnetPage() {
 
       window.localStorage.setItem(
         activeRoundStorageKey(
-          provider.publicKey.toBase58()
+          connectedWallet.account.address
         ),
         preparedRound.roundAddress
+      );
+
+      setWalletAddress(
+        connectedWallet.account.address
       );
 
       setRoundId(
@@ -1657,7 +1555,7 @@ export default function DevnetPage() {
       );
 
       setRoundSignature(
-        result.signature
+        sent.signature
       );
 
       setPreparedRound(null);
@@ -1666,12 +1564,14 @@ export default function DevnetPage() {
         "Ronda de prueba creada correctamente en Solana Devnet."
       );
 
-      await loadBalance();
+      await loadBalance(
+        connectedWallet.account.address
+      );
 
     } catch (error) {
 
       console.error(
-        "V2_DEVNET_CREATE_ROUND_ERROR",
+        "V2_DEVNET_CREATE_ROUND_WALLET_STANDARD_ERROR",
         error
       );
 
@@ -1691,367 +1591,268 @@ export default function DevnetPage() {
 
   async function submitPrediction() {
 
-    const provider =
+    if (!connectedWallet) {
+      setErrorMessage(
+        "Conecta una wallet compatible primero."
+      );
+      return;
+    }
 
-      phantom();
+    if (!connectedWallet.signer) {
+      setErrorMessage(
+        "La wallet conectada no permite firmar transacciones."
+      );
+      return;
+    }
 
     if (
-
-      !provider ||
-
-      !provider.publicKey
-
+      !(
+        "modifyAndSignTransactions"
+        in connectedWallet.signer
+      )
     ) {
-
       setErrorMessage(
-
-        "Conecta Phantom primero."
-
+        "La wallet conectada no soporta firma de transacciones."
       );
-
       return;
-
     }
 
     if (!roundAddress) {
-
       setErrorMessage(
-
         "Primero debes crear una ronda Devnet."
-
       );
-
       return;
-
     }
 
     if (
-
-      !Number.isSafeInteger(
-
-        points
-
-      ) ||
-
+      !Number.isSafeInteger(points) ||
       points < 1 ||
-
       points > 10000
-
     ) {
-
       setErrorMessage(
-
         "Los puntos deben estar entre 1 y 10.000."
-
       );
-
       return;
-
     }
 
     if (
-
       balance === null ||
-
       balance <= 0
-
     ) {
-
       setErrorMessage(
-
         "La wallet no tiene SOL Devnet."
-
       );
-
       return;
-
     }
+
+    const userAddress =
+      connectedWallet.account.address;
 
     try {
 
       setMessage("");
-
       setErrorMessage("");
 
       setPredictionAddress("");
-
       setPredictionSignature("");
 
-      setPredictionPreparing(
-
-        true
-
-      );
+      setPredictionPreparing(true);
 
       const prepareResponse =
-
         await fetch(
-
           "/api/test/prediction/prepare",
-
           {
-
-            method:
-
-              "POST",
+            method: "POST",
 
             headers: {
-
               "Content-Type":
-
                 "application/json",
-
             },
 
-            body:
+            body: JSON.stringify({
+              round:
+                roundAddress,
 
-              JSON.stringify({
+              user:
+                userAddress,
 
-                round:
+              direction,
 
-                  roundAddress,
-
-                user:
-
-                  provider.publicKey.toBase58(),
-
-                direction,
-
-                points,
-
-              }),
-
+              points,
+            }),
           }
-
         );
 
-      const prepared =
-
-        await prepareResponse
-
-          .json() as PreparePredictionResponse;
+      const prepared: PreparePredictionResponse =
+        await prepareResponse.json();
 
       if (
-
         !prepareResponse.ok ||
-
         !prepared.ok
-
       ) {
 
         if (
-
           prepared.code ===
-
           "V2_DEVNET_PROGRAM_NOT_DEPLOYED"
-
         ) {
-
           throw new Error(
-
             "El contrato Memedictions todavía no está desplegado en Devnet."
-
           );
-
         }
 
         throw new Error(
-
           prepared.error ||
-
           "No se pudo preparar la predicción Devnet."
-
         );
-
       }
 
       if (
-
         !prepared.transaction ||
-
         !prepared.blockhash ||
-
-        prepared
-
-          .lastValidBlockHeight ===
-
+        prepared.lastValidBlockHeight ===
           undefined
-
       ) {
-
         throw new Error(
-
           "La respuesta de preparación de predicción está incompleta."
-
         );
-
       }
 
-      setPredictionPreparing(
+      setPredictionPreparing(false);
+      setPredictionSending(true);
 
-        false
-
-      );
-
-      setPredictionSending(
-
-        true
-
-      );
-
-      const unsignedTransaction =
-        Transaction.from(
-          Buffer.from(
-            prepared.transaction,
-            "base64"
-          )
+      const transactionBytes =
+        Buffer.from(
+          prepared.transaction,
+          "base64"
         );
 
+      const transactionCodec =
+        getTransactionCodec();
+
+      const kitTransaction =
+        transactionCodec.decode(
+          transactionBytes
+        );
+
+      console.log(
+        "V2_DEVNET_PREDICTION_REQUESTING_WALLET_STANDARD_SIGNATURE",
+        {
+          wallet:
+            connectedWallet.wallet.name,
+          user:
+            userAddress,
+          predictionAddress:
+            prepared.predictionAddress,
+        }
+      );
+
+      const signedTransactions =
+        await connectedWallet.signer
+          .modifyAndSignTransactions([
+            kitTransaction,
+          ]);
+
       const signedTransaction =
-        await provider.signTransaction(
-          unsignedTransaction
+        signedTransactions[0];
+
+      if (!signedTransaction) {
+        throw new Error(
+          "La wallet no devolvió una predicción firmada."
+        );
+      }
+
+      const signedTransactionBytes =
+        transactionCodec.encode(
+          signedTransaction
         );
 
       const signedTransactionBase64 =
         Buffer.from(
-          signedTransaction.serialize()
+          signedTransactionBytes
         ).toString("base64");
 
       console.log(
-        "V2_DEVNET_PREDICTION_PHANTOM_SIGNED",
+        "V2_DEVNET_PREDICTION_WALLET_STANDARD_SIGNED",
         {
           user:
-            provider.publicKey.toBase58(),
+            userAddress,
           predictionAddress:
             prepared.predictionAddress,
         }
       );
 
       const sendResponse =
-
         await fetch(
-
           "/api/test/prediction/send",
-
           {
-
-            method:
-
-              "POST",
+            method: "POST",
 
             headers: {
-
               "Content-Type":
-
                 "application/json",
-
             },
 
-            body:
+            body: JSON.stringify({
+              transaction:
+                signedTransactionBase64,
 
-              JSON.stringify({
+              blockhash:
+                prepared.blockhash,
 
-                transaction:
-
-                  signedTransactionBase64,
-
-                blockhash:
-
-                  prepared.blockhash,
-
-                lastValidBlockHeight:
-
-                  prepared
-
-                    .lastValidBlockHeight,
-
-              }),
-
+              lastValidBlockHeight:
+                prepared.lastValidBlockHeight,
+            }),
           }
-
         );
 
-      const sent =
-
-        await sendResponse
-
-          .json() as SendPredictionResponse;
+      const sent: SendPredictionResponse =
+        await sendResponse.json();
 
       if (
-
         !sendResponse.ok ||
-
         !sent.ok ||
-
         !sent.signature
-
       ) {
-
         throw new Error(
-
           sent.error ||
-
           "No se pudo enviar la predicción Devnet."
-
         );
-
       }
 
       setPredictionAddress(
-
         prepared.predictionAddress ||
-
         ""
-
       );
 
       setPredictionSignature(
-
         sent.signature
-
       );
 
       setMessage(
-
         "Predicción registrada correctamente en Solana Devnet."
-
       );
 
-      await loadBalance();
+      await loadBalance(
+        userAddress
+      );
 
     } catch (error) {
 
       console.error(
-
-        "V2_DEVNET_PREDICTION_ERROR",
-
+        "V2_DEVNET_PREDICTION_WALLET_STANDARD_ERROR",
         error
-
       );
 
       setErrorMessage(
-
         error instanceof Error
-
           ? error.message
-
           : "No se pudo registrar la predicción."
-
       );
 
     } finally {
 
-      setPredictionPreparing(
-
-        false
-
-      );
-
-      setPredictionSending(
-
-        false
-
-      );
+      setPredictionPreparing(false);
+      setPredictionSending(false);
 
     }
 
@@ -2069,38 +1870,51 @@ export default function DevnetPage() {
 
   async function resolveRound() {
 
-    const provider =
+    console.log(
+      "MEMEDICTIONS_RESOLVE_ROUND_CLICKED",
+      {
+        connectedWallet:
+          Boolean(connectedWallet),
+        walletAddress,
+        balance,
+        roundAddress,
+        closingPrice,
+        closePreparing,
+        closeSending,
+      }
+    );
 
-      phantom();
+    if (!connectedWallet) {
+      setErrorMessage(
+        "Conecta una wallet compatible primero."
+      );
+      return;
+    }
+
+    if (!connectedWallet.signer) {
+      setErrorMessage(
+        "La wallet conectada no permite firmar transacciones."
+      );
+      return;
+    }
 
     if (
-
-      !provider ||
-
-      !provider.publicKey
-
+      !(
+        "modifyAndSignTransactions"
+        in connectedWallet.signer
+      )
     ) {
-
       setErrorMessage(
-
-        "Conecta Phantom primero."
-
+        "La wallet conectada no soporta firma de transacciones."
       );
-
       return;
-
     }
 
     if (!roundAddress) {
-
       setErrorMessage(
-
         "No existe una ronda Devnet para resolver."
-
       );
-
       return;
-
     }
 
     if (
@@ -2110,313 +1924,229 @@ export default function DevnetPage() {
       setErrorMessage(
         "El precio final debe ser un entero positivo."
       );
-
       return;
     }
 
     if (
-
       balance === null ||
-
       balance <= 0
-
     ) {
-
       setErrorMessage(
-
         "La wallet no tiene SOL Devnet."
-
       );
-
       return;
-
     }
+
+    const authorityAddress =
+      connectedWallet.account.address;
 
     try {
 
       setMessage("");
-
       setErrorMessage("");
 
       setResultAddress("");
-
       setResultSignature("");
 
-      setClosePreparing(
-
-        true
-
-      );
+      setClosePreparing(true);
 
       const prepareResponse =
-
         await fetch(
-
           "/api/test/round/close/prepare",
-
           {
-
-            method:
-
-              "POST",
+            method: "POST",
 
             headers: {
-
               "Content-Type":
-
                 "application/json",
-
             },
 
-            body:
+            body: JSON.stringify({
+              round:
+                roundAddress,
 
-              JSON.stringify({
+              authority:
+                authorityAddress,
 
-                round:
-
-                  roundAddress,
-
-                authority:
-
-                  provider.publicKey.toBase58(),
-
-                closingPrice,
-
-              }),
-
+              closingPrice,
+            }),
           }
-
         );
 
-      const prepared =
-
-        await prepareResponse
-
-          .json() as PrepareCloseResponse;
+      const prepared: PrepareCloseResponse =
+        await prepareResponse.json();
 
       if (
-
         !prepareResponse.ok ||
-
         !prepared.ok
-
       ) {
 
         if (
-
           prepared.code ===
-
           "V2_DEVNET_PROGRAM_NOT_DEPLOYED"
-
         ) {
-
           throw new Error(
-
             "El contrato Memedictions todavía no está desplegado en Devnet."
-
           );
-
         }
 
         if (
-
           prepared.code ===
-
           "ROUND_NOT_FINISHED"
-
         ) {
-
           throw new Error(
-
             "La ronda todavía no terminó según el reloj de Solana. Espera unos segundos y vuelve a intentarlo."
-
           );
-
         }
 
         if (
-
           prepared.code ===
-
           "ROUND_ALREADY_RESOLVED"
-
         ) {
-
           throw new Error(
-
             "Esta ronda ya fue resuelta on-chain."
-
           );
-
         }
 
         throw new Error(
-
           prepared.error ||
-
           "No se pudo preparar la resolución Devnet."
-
         );
-
       }
 
       if (
-
         !prepared.transaction ||
-
         !prepared.blockhash ||
-
-        prepared
-
-          .lastValidBlockHeight ===
-
+        prepared.lastValidBlockHeight ===
           undefined ||
-
         !prepared.resultAddress
-
       ) {
-
         throw new Error(
-
           "La respuesta de resolución está incompleta."
-
         );
-
       }
 
-      setClosePreparing(
+      setClosePreparing(false);
+      setCloseSending(true);
 
-        false
-
-      );
-
-      setCloseSending(
-
-        true
-
-      );
-
-      const unsignedTransaction =
-        Transaction.from(
-          Buffer.from(
-            prepared.transaction,
-            "base64"
-          )
+      const transactionBytes =
+        Buffer.from(
+          prepared.transaction,
+          "base64"
         );
+
+      const transactionCodec =
+        getTransactionCodec();
+
+      const kitTransaction =
+        transactionCodec.decode(
+          transactionBytes
+        );
+
+      console.log(
+        "V2_DEVNET_CLOSE_REQUESTING_WALLET_STANDARD_SIGNATURE",
+        {
+          wallet:
+            connectedWallet.wallet.name,
+          authority:
+            authorityAddress,
+          resultAddress:
+            prepared.resultAddress,
+        }
+      );
+
+      const signedTransactions =
+        await connectedWallet.signer
+          .modifyAndSignTransactions([
+            kitTransaction,
+          ]);
 
       const signedTransaction =
-        await provider.signTransaction(
-          unsignedTransaction
+        signedTransactions[0];
+
+      if (!signedTransaction) {
+        throw new Error(
+          "La wallet no devolvió una resolución firmada."
+        );
+      }
+
+      const signedTransactionBytes =
+        transactionCodec.encode(
+          signedTransaction
         );
 
       const signedTransactionBase64 =
         Buffer.from(
-          signedTransaction.serialize()
+          signedTransactionBytes
         ).toString("base64");
 
       console.log(
-        "V2_DEVNET_CLOSE_PHANTOM_SIGNED",
+        "V2_DEVNET_CLOSE_WALLET_STANDARD_SIGNED",
         {
           authority:
-            provider.publicKey.toBase58(),
+            authorityAddress,
           resultAddress:
             prepared.resultAddress,
         }
       );
 
       const sendResponse =
-
         await fetch(
-
           "/api/test/round/close/send",
-
           {
-
-            method:
-
-              "POST",
+            method: "POST",
 
             headers: {
-
               "Content-Type":
-
                 "application/json",
-
             },
 
-            body:
+            body: JSON.stringify({
+              transaction:
+                signedTransactionBase64,
 
-              JSON.stringify({
+              blockhash:
+                prepared.blockhash,
 
-                transaction:
-
-                  signedTransactionBase64,
-
-                blockhash:
-
-                  prepared.blockhash,
-
-                lastValidBlockHeight:
-
-                  prepared
-
-                    .lastValidBlockHeight,
-
-              }),
-
+              lastValidBlockHeight:
+                prepared.lastValidBlockHeight,
+            }),
           }
-
         );
 
-      const sent =
-
-        await sendResponse
-
-          .json() as SendCloseResponse;
+      const sent: SendCloseResponse =
+        await sendResponse.json();
 
       if (
-
         !sendResponse.ok ||
-
         !sent.ok ||
-
         !sent.signature
-
       ) {
-
         throw new Error(
-
           sent.error ||
-
           "No se pudo resolver la ronda en Devnet."
-
         );
-
       }
 
       setResultAddress(
-
         prepared.resultAddress
-
       );
 
       setResultSignature(
-
         sent.signature
-
       );
 
       setMessage(
-
         "Ronda resuelta correctamente en Solana Devnet."
-
       );
 
-      await loadBalance();
+      await loadBalance(
+        authorityAddress
+      );
 
       await recoverDevnetState(
         roundAddress,
-        provider.publicKey.toBase58()
+        authorityAddress
       );
 
       setNextRoundCountdown(5);
@@ -2424,36 +2154,20 @@ export default function DevnetPage() {
     } catch (error) {
 
       console.error(
-
-        "V2_DEVNET_RESOLVE_ERROR",
-
+        "V2_DEVNET_RESOLVE_WALLET_STANDARD_ERROR",
         error
-
       );
 
       setErrorMessage(
-
         error instanceof Error
-
           ? error.message
-
           : "No se pudo resolver la ronda Devnet."
-
       );
 
     } finally {
 
-      setClosePreparing(
-
-        false
-
-      );
-
-      setCloseSending(
-
-        false
-
-      );
+      setClosePreparing(false);
+      setCloseSending(false);
 
     }
 
@@ -2477,10 +2191,10 @@ export default function DevnetPage() {
 
   const walletReady =
 
+    pageMounted &&
     Boolean(
-
+      connectedWallet?.account.address ||
       walletAddress
-
     );
 
   const roundReady =
@@ -3039,27 +2753,11 @@ export default function DevnetPage() {
             Tu wallet firma cada transacción directamente en Solana Devnet.
           </p>
 
-          {!walletAddress ? (
-            <button
-              type="button"
-              onClick={connectWallet}
-              disabled={connecting}
-              style={{
-                marginTop: 8,
-                padding: "12px 18px",
-                borderRadius: 12,
-                border: "1px solid #7b61ff",
-                background: "#7b61ff",
-                color: "#ffffff",
-                fontWeight: 800,
-                cursor: connecting ? "not-allowed" : "pointer",
-              }}
-            >
-              {connecting ? "Conectando..." : "Conectar Phantom"}
-            </button>
-          ) : (
+          {walletAddress && (
             <>
-              <div style={monoBoxStyle}>{walletAddress}</div>
+              <div style={monoBoxStyle}>
+                {walletAddress}
+              </div>
 
               <div
                 style={{
@@ -3080,7 +2778,11 @@ export default function DevnetPage() {
 
                 <button
                   type="button"
-                  onClick={() => void loadBalance()}
+                  onClick={() =>
+                    void loadBalance(
+                      connectedWallet?.account.address
+                    )
+                  }
                   disabled={balanceLoading}
                   style={{
                     padding: "9px 12px",
@@ -3092,23 +2794,41 @@ export default function DevnetPage() {
                 >
                   Actualizar balance
                 </button>
-
-                <button
-                  type="button"
-                  onClick={disconnectWallet}
-                  style={{
-                    padding: "9px 12px",
-                    borderRadius: 10,
-                    border: "1px solid #82465a",
-                    background: "#2d1821",
-                    color: "#ffb0c3",
-                  }}
-                >
-                  Desconectar
-                </button>
               </div>
             </>
           )}
+
+          <div
+            style={{
+              marginTop: 24,
+              paddingTop: 20,
+              borderTop:
+                "1px solid rgba(255,255,255,.08)",
+            }}
+          >
+            <div
+              style={{
+                color: "#63e6a9",
+                fontWeight: 900,
+                fontSize: 12,
+                letterSpacing: ".08em",
+              }}
+            >
+              WALLET SOLANA
+            </div>
+
+            <p
+              style={{
+                ...mutedTextStyle,
+                marginTop: 8,
+              }}
+            >
+              Conecta una wallet compatible con Wallet Standard
+              para firmar directamente en Solana Devnet.
+            </p>
+
+            <WalletStandardPanel />
+          </div>
         </section>
 
         <section style={cardStyle}>
@@ -3177,8 +2897,6 @@ export default function DevnetPage() {
                 : createRound
             }
             disabled={
-              !walletReady ||
-              !hasBalance ||
               roundReady ||
               roundPreparing ||
               roundSending
@@ -3192,7 +2910,7 @@ export default function DevnetPage() {
               color: "#ffffff",
               fontWeight: 800,
               opacity:
-                !walletReady || !hasBalance || roundPreparing || roundSending
+                roundReady || roundPreparing || roundSending
                   ? 0.55
                   : 1,
             }}
@@ -3204,7 +2922,7 @@ export default function DevnetPage() {
               : roundReady
               ? "✓ Ronda creada"
               : preparedRound
-              ? "Firmar con Phantom"
+              ? "Firmar con wallet"
               : "Preparar ronda"}
           </button>
 
