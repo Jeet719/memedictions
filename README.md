@@ -1,369 +1,422 @@
-<<<<<<< HEAD
-# memedictions
-Memecoin prediction platform built on Solana, featuring transparent, verifiable UP/DOWN predictions and short-duration markets.
-=======
 # Memedictions
 
-**Memedictions** es un proyecto construido sobre Solana para crear rondas de predicción relacionadas con memecoins.
+**From memes to verifiable markets.**
 
-Los usuarios pueden participar en una ronda eligiendo si el activo indicado subirá o bajará antes del cierre.
+Memedictions is an experimental prediction market platform built on **Solana**.
 
-Actualmente Memedictions utiliza exclusivamente **puntos ficticios**.
+It allows users to create short-duration markets, predict whether a memecoin or market will go **UP** or **DOWN**, record that prediction on-chain, resolve the round, and verify the complete lifecycle directly on Solana.
 
-No utiliza dinero real, no acepta apuestas reales y no realiza settlement con tokens o activos financieros reales.
+The current public version runs entirely on **Solana Devnet** and uses only **fictitious points (PTS)**.
+
+No real money is used.
 
 ---
 
-## Estado actual
+## Live Demo
 
-### Localnet
+Public Devnet testing:
 
-✅ **MVP funcional end-to-end**
+https://memedictions.vercel.app/test
 
-El flujo completo ha sido implementado, desplegado y probado en Solana Localnet:
+The current V2.1 release has been tested end-to-end in production.
+
+### Current flow
 
 ```text
-Crear ronda
-     ↓
-Registrar predicción
-     ↓
-Esperar cierre
-     ↓
-Resolver ronda
-     ↓
-Registrar resultado
-     ↓
-Calcular recompensa
-El MVP permite actualmente:
-- Crear rondas on-chain.
-- Definir una duración para cada ronda.
-- Registrar predicciones on-chain.
-- Elegir entre SUBE y BAJA.
-- Registrar puntos ficticios asociados a una predicción.
-- Utilizar el reloj de Solana para determinar el cierre.
-- Impedir predicciones una vez cerrada la ronda.
-- Resolver la ronda.
-- Registrar el resultado on-chain.
-- Consultar predicciones.
-- Consultar rondas.
-- Consultar resultados.
-- Calcular recompensas proporcionalmente.
-- Ejecutar el flujo completo desde la interfaz web.
-El flujo Localnet ha sido probado satisfactoriamente de principio a fin.
-Devnet
+Connect wallet
+      ↓
+Create round
+      ↓
+Register prediction
+      ↓
+Wait for round expiration
+      ↓
+Resolve round
+      ↓
+Store result on-chain
+      ↓
+Verify with Solana Explorer
+      ↓
+Start a new round
+Why Memedictions?
+Prediction markets can be powerful information systems, but many existing implementations are complex, slow to use, or disconnected from the fast-moving communities where narratives actually form.
+Memedictions explores a simpler model:
+- short-duration prediction markets;
+- simple UP / DOWN decisions;
+- transparent on-chain records;
+- verifiable results;
+- wallet-based identity;
+- social and community-driven markets;
+- a UX designed for fast-moving crypto communities.
+The long-term vision is to evolve from simple memecoin predictions into reusable infrastructure for verifiable community markets.
 
-Infraestructura preparada — deployment pendiente
-La aplicación ya contiene la infraestructura necesaria para comenzar las pruebas sobre Solana 
+Current Status — V2.1
+Solana Devnet
+V2.1 is deployed and operational on Solana Devnet.
+Current capabilities:
+- ✅ Solana Wallet Standard integration
+- ✅ Wallet detection and connection
+- ✅ Solflare support
+- ✅ Devnet balance detection
+- ✅ On-chain round creation
+- ✅ UP / DOWN predictions
+- ✅ Fictitious PTS
+- ✅ One prediction per user per round
+- ✅ Solana clock validation
+- ✅ Round expiration validation
+- ✅ Manual closing price
+- ✅ On-chain round resolution
+- ✅ SUBE / BAJA / VOID outcomes
+- ✅ RoundResult PDA
+- ✅ Duplicate resolution protection
+- ✅ Solana Explorer links
+- ✅ Automatic state recovery
+- ✅ Automatic reset after completed rounds
+- ✅ Public Vercel deployment
+- ✅ End-to-end public testing
 
-Actualmente están preparados:
-- Conexión con Phantom.
-- Lectura de saldo Devnet.
-- Creación de rondas desde el navegador.
-- Firma de transacciones mediante Phantom.
-- Registro de predicciones.
-- Preparación del cierre de rondas.
-- Resolución de rondas.
-- Envío de transacciones firmadas.
-- Validación de existencia del programa.
-- Validación de cuentas PDA.
-- Validación del tiempo de cierre.
-- Prevención de predicciones duplicadas.
-- Consulta del resultado.
+Solana Program
+V2.1 Program ID
+6ePYpybRkB9EBZetcprsxXuxZbVF2xv9qcBUgd6nahfy
 
-Las transacciones de Devnet siguen el modelo:
-Frontend
-   ↓
-API /prepare
-   ↓
-Construcción de transacción sin firmar
-   ↓
-Phantom
-   ↓
-Firma del usuario
-   ↓
-API /send
-   ↓
+The program is deployed on Solana Devnet.
+The same Program ID is synchronized across the current V2.1 implementation.
+
+How to Test Memedictions
+1. Open the public test application
+https://memedictions.vercel.app/test
+2. Connect a compatible Solana wallet
+The application uses Solana Wallet Standard.
+Solflare has been tested successfully.
+Make sure the wallet is using:
 Solana Devnet
 
-El contrato todavía no ha sido desplegado oficialmente en Devnet.
-El deployment se realizará cuando exista suficiente SOL Devnet para cubrir de forma segura las cuentas necesarias, rent y fees asociados al despliegue.
+3. Get Devnet SOL
+A small amount of Devnet SOL is required to pay test transaction fees.
+Devnet SOL has no monetary value.
+Solana faucet:
+https://faucet.solana.com/
+4. Create a round
+Choose:
+- market;
+- duration;
+- opening price.
+The round is created on-chain.
+5. Submit a prediction
+Choose:
+SUBE
 
-Programa Solana
-Program ID actual:
-6ePYpybRkB9EBZetcprsxXuxZbVF2xv9qcBUgd6nahfy
-El mismo Program ID está sincronizado entre:
-- Anchor
-- Rust
-- IDL
-- frontend
-- configuración del proyecto
+or:
+BAJA
 
-Arquitectura
-Memedictions está compuesto principalmente por:
-Smart contract
-Desarrollado con:
-- Rust
-- Anchor
-- Solana
-Responsable de:
-- creación de rondas;
-- almacenamiento del estado;
-- predicciones;
-- cierre;
-- resolución;
-- resultados on-chain.
+Then assign fictitious PTS.
+The prediction is recorded on-chain.
+6. Wait for the round to finish
+The Solana clock is used to validate whether the round has reached its closing time.
+Predictions cannot be submitted after the round has expired.
+7. Resolve the round
+Enter the final price.
+Memedictions compares:
+Opening Price
+      ↓
+Closing Price
+      ↓
+Outcome
+
+Possible outcomes:
+SUBE
+BAJA
+VOID
+
+8. Verify on-chain
+The interface provides Solana Explorer links for:
+- Round PDA
+- Prediction PDA
+- Round Result PDA
+- Round creation transaction
+- Prediction transaction
+- Resolution transaction
+
+Architecture
+Memedictions currently uses the following architecture:
+User
+  ↓
+Wallet Standard
+  ↓
 Frontend
-Desarrollado con:
-- Next.js
-- TypeScript
-- React
-Responsable de:
-- interfaz de usuario;
-- conexión de wallets;
-- creación de rondas;
-- registro de predicciones;
-- visualización de resultados;
-- interacción con las APIs;
-- interacción con Solana.
-Wallet
-La versión Devnet utiliza Phantom para:
-- conectar la wallet;
-- identificar al usuario;
-- firmar transacciones;
-- autorizar operaciones on-chain.
-Las claves privadas del usuario no son manejadas por el servidor.
-
+  ↓
+API /prepare
+  ↓
+Unsigned Solana transaction
+  ↓
+User wallet signs
+  ↓
+API /send
+  ↓
+Solana Devnet
+  ↓
+Program
+  ↓
 PDAs
-El protocolo utiliza Program Derived Addresses para representar distintas cuentas del sistema.
+
+The server prepares transactions.
+The user's wallet signs them.
+The server never receives or stores the user's private keys.
+Wallet Standard
+V2.1 migrated away from a direct Phantom-only integration.
+Memedictions now uses Solana Wallet Standard.
+This allows the application architecture to support compatible Solana wallets without depending on a single wallet provider.
+Current tested wallet:
+Solflare
+
+The signing flow is handled through the connected wallet signer.
+Program Derived Addresses
+Memedictions uses PDAs to represent protocol state.
+Round
+Conceptually:
 ["round", authority, round_id]
 
+Represents a prediction round.
 Prediction
 ["prediction", round, user]
 
+Represents one user's prediction for one round.
+The current program prevents the same user from submitting multiple predictions for the same round.
 Round Result
 ["round_result", round]
 
-Sistema actual de predicción
-Cada usuario selecciona una dirección:
+Represents the final resolved result of a round.
+The result account also prevents the same round from being resolved multiple times.
+Prediction Model
+Users currently choose between:
 SUBE
-o
+
+and:
 BAJA
-y asigna una cantidad de puntos ficticios.
 
-Ejemplo:
-Usuario A → SUBE → 100 PTS
-Usuario B → BAJA → 150 PTS
-Usuario C → SUBE → 75 PTS
+They assign fictitious PTS to the prediction.
+Example:
+User A → SUBE → 100 PTS
+User B → BAJA → 150 PTS
+User C → SUBE → 75 PTS
 
-Una vez finalizada la ronda, la autoridad registra manualmente el resultado.
+PTS are currently used only for testing the prediction model and user experience.
+They are not tokens and have no monetary value.
 
-Recompensas
-Actualmente las recompensas se calculan utilizando puntos ficticios.
-Los usuarios que aciertan recuperan sus puntos originales y reciben proporcionalmente una parte del pool correspondiente a las predicciones perdedoras.
+Round Resolution
+V2.1 currently uses a manually supplied opening and closing price.
+The program determines the outcome from those values.
+Example
+Opening Price: 100
+Closing Price: 105
 
-Conceptualmente:
-Pool total ganador
-+
-Pool total perdedor
-        ↓
-Distribución proporcional
-entre los ganadores
+Outcome: SUBE
 
-Si una ronda termina sin usuarios en el lado ganador, los puntos pueden ser retornados según la lógica actual del MVP.
-No existe transferencia de dinero real.
+Opening Price: 100
+Closing Price: 95
 
-Resolución de rondas
-Actualmente el resultado de una ronda es declarado manualmente por la autoridad correspondiente.
-Esto significa que la versión actual:
-- no utiliza oracle;
-- no consulta automáticamente precios externos;
-- no determina automáticamente el resultado de mercado.
-La resolución manual forma parte de la etapa MVP.
+Outcome: BAJA
 
-Oracles:
+Opening Price: 100
+Closing Price: 100
 
-No implementados todavía
-Una evolución futura del protocolo puede integrar un sistema de oracle para obtener precios verificables de forma automática..
+Outcome: VOID
 
-Posibles funciones futuras:
-Precio inicial
+The result is stored on-chain.
+
+Why Manual Prices in V2.1?
+The goal of V2.1 is to prove the complete on-chain prediction lifecycle before introducing external market data dependencies.
+V2.1 validates:
+- round creation;
+- user identity through wallets;
+- predictions;
+- timing;
+- PDA derivation;
+- transaction signing;
+- resolution;
+- result storage;
+- public verification.
+This creates a stable base before oracle automation is introduced.
+
+V2.2 — Oracle Integration
+The next technical evolution of Memedictions is V2.2.
+The objective is to replace manually supplied market prices with externally verifiable price data.
+The current oracle research and development path uses Pyth Network.
+Target architecture:
+Create round
       ↓
-Oracle
+Oracle opening price
       ↓
-Precio de cierre
+Users predict
       ↓
-Comparación
+Round expires
       ↓
-Resultado automático
+Oracle closing price
+      ↓
+Automatic comparison
+      ↓
+On-chain result
 
-La selección e integración del oracle se realizará en una etapa posterior.
+A separate V2.2 development program has already been used for oracle experimentation.
+V2.2 is intentionally kept separate from the stable V2.1 public demo so that oracle development cannot destabilize the hackathon-ready release.
 
-Tokens
-La versión actual no utiliza settlement con tokens SPL.
-Los puntos utilizados dentro del MVP son ficticios y existen exclusivamente para probar:
-- mecánica de predicción;
-- distribución proporcional;
-- comportamiento de rondas;
-- experiencia de usuario.
-No representan dinero, stablecoins ni activos intercambiables.
+Current Oracle Research
+Memedictions has already explored Pyth integration on Solana Devnet.
+The main technical challenge identified during testing is reliable access to sufficiently fresh oracle price updates in the development environment.
+The current direction for V2.2 is to continue evaluating authenticated Hermes / Pull Oracle workflows.
+V2.1 remains the stable public release while this work continues.
 
-Landing
-Memedictions incluye una landing independiente del MVP.
+Public Testing
+The current version includes a public testing guide directly inside the application.
+Testers are informed that:
+- the application runs on Solana Devnet;
+- a compatible wallet is required;
+- Devnet SOL is required for transaction fees;
+- PTS are fictitious;
+- no real money is used;
+- feedback is welcome.
 
-Ruta:
-/landing
-
-Su objetivo es presentar públicamente:
-- el proyecto;
-- su propuesta;
-- el concepto;
-- la evolución futura del protocolo.
-La landing permanece separada de la interfaz utilizada para las pruebas técnicas.
-
-Interfaz Localnet
-El MVP principal de Localnet utiliza:
-DemoRoundControl
-desde la página principal.
-Permite ejecutar visualmente el ciclo completo:
-Create
-→ Predict
-→ Wait
-→ Resolve
-→ Result
-
-Interfaz Devnet
-La versión destinada a Devnet está disponible en:
-/devnet
-Incluye actualmente las etapas:
-1. Wallet
-
-2. Crear ronda Devnet
-
-3. Registrar predicción
-
-4. Resolver / cerrar ronda
-
-5. Resultado
-
-El flujo comenzará a utilizarse completamente una vez que el programa sea desplegado en Solana Devnet.
-
-Seguridad
-El diseño actual evita almacenar claves privadas de Phantom en el servidor.
-La arquitectura de Devnet utiliza:
-Servidor prepara transacción
+Security Model
+The current design follows a non-custodial signing model.
+Server prepares transaction
         ↓
-Navegador recibe transacción
+Browser receives transaction
         ↓
-Phantom firma
+User wallet signs
         ↓
-Transacción firmada
+Signed transaction is submitted
         ↓
-Servidor transmite a Solana
-La firma continúa bajo control de la wallet del usuario.
+Solana processes transaction
 
-Limitaciones actuales
-Memedictions continúa siendo un MVP experimental.
-Actualmente:
-- utiliza puntos ficticios;
-- no utiliza dinero real;
-- no utiliza tokens para settlement;
-- no existe oracle automático;
-- la resolución es manual;
-- Devnet todavía está pendiente de deployment;
-- Mainnet no está habilitado.
+Memedictions does not require the server to control the user's wallet.
+Private keys and seed phrases remain under the user's wallet control.
 
-Roadmap inmediato:
-Etapa 1 — Localnet
-✅ Contrato funcional
-✅ Crear ronda
-✅ Registrar predicción
-✅ Cerrar ronda
-✅ Resolver ronda
-✅ Resultado on-chain
-✅ Cálculo de recompensas
-✅ Interfaz completa
-✅ Pruebas end-to-end  
+Tech Stack
+Blockchain
+- Solana
+- Anchor
+- Rust
+- Program Derived Addresses
+- Solana Devnet
+Frontend
+- Next.js
+- React
+- TypeScript
+Solana Client
+- Solana Kit
+- Solana Wallet Standard
+- Solana RPC
+- solana/web3.js
+Infrastructure
+- Vercel
+- GitHub
+- Solana Explorer
+Oracle R&D
+- Pyth Network
+- Hermes
+- Pull Oracle architecture research
 
-Etapa 2 — Devnet
-🟡 Obtener SOL Devnet suficiente
-⬜ Deploy del programa
-⬜ Verificar Program ID en Devnet
-⬜ Crear primera ronda Devnet
-⬜ Registrar primera predicción con Phantom
-⬜ Esperar cierre real de la ronda
-⬜ Resolver ronda
-⬜ Verificar resultado
-⬜ Verificar PDAs
-⬜ Verificar firmas y transacciones en Solana Explorer  
+Current Limitations
+Memedictions is still an experimental project.
+Current limitations include:
+- Devnet only;
+- fictitious PTS only;
+- no Mainnet deployment;
+- no real-money settlement;
+- no SPL-token settlement;
+- opening and closing prices are manually supplied in V2.1;
+- oracle integration remains under development;
+- no production economic model yet.
+These limitations are intentional for the current testing stage.
 
-Etapa 3 — Beta pública
-⬜ Demo pública
-⬜ Testers externos
-⬜ Métricas de uso
-⬜ Corrección de errores
-⬜ Mejoras UX
-⬜ Documentación para testers
-⬜ Feedback de comunidad  
+Roadmap
+V2.1 — Public Devnet MVP
+- ✅ Solana program deployed
+- ✅ Round creation
+- ✅ Wallet Standard
+- ✅ Predictions
+- ✅ Round expiration
+- ✅ Round resolution
+- ✅ VOID handling
+- ✅ PDAs
+- ✅ Public Solana Explorer verification
+- ✅ Public Vercel demo
+- ✅ External testers
+- ✅ Testing documentation
+V2.2 — Oracle Automation
+- 🟡 Pyth integration
+- 🟡 Fresh price update workflow
+- 🟡 Hermes / Pull Oracle evaluation
+- ⬜ Automatic opening price
+- ⬜ Automatic closing price
+- ⬜ Oracle-driven resolution
+- ⬜ Public oracle-enabled testing
+Future Protocol Evolution
+Potential future areas include:
+- prediction accuracy history;
+- reputation systems;
+- streaks;
+- leaderboards;
+- creator markets;
+- community-created markets;
+- social prediction feeds;
+- multiple market categories;
+- APIs and SDKs;
+- Markets-as-a-Service;
+- automated market creation;
+- advanced oracle infrastructure;
+- SPL-based experimental settlement;
+- governance research.
 
-Etapa 4 — Automatización
-⬜ Evaluación de oracle
-⬜ Resolución automática
-⬜ Datos de mercado verificables
-⬜ Mayor descentralización del proceso de resolución  
+Long-Term Vision
+Memedictions begins with short-duration memecoin predictions, but the larger idea is broader.
+The goal is to explore a system where communities can create simple markets around questions they care about and verify the complete lifecycle on-chain.
+Possible long-term direction:
+Memecoins
+    ↓
+Crypto markets
+    ↓
+Creator markets
+    ↓
+Community predictions
+    ↓
+Reusable prediction infrastructure
 
-Etapa 5 — Evolución del protocolo
-Posibles áreas futuras de investigación:
-- mercados adicionales;
-- nuevos mecanismos de predicción;
-- reputación de usuarios;
-- estadísticas;
-- rankings;
-- mecanismos sociales;
-- infraestructura de oracle;
-- settlement SPL;
-- escalabilidad;
-- seguridad;
-- gobernanza.
-Estas características no forman parte todavía del MVP actual.
+Or simply:
+From memes to verifiable markets.
 
-Próximo milestone
-El siguiente objetivo técnico principal de Memedictions es:
-DEPLOY COMPLETO EN SOLANA DEVNET
-Después del deployment se ejecutará una prueba completa:
-Deploy
-   ↓
-Create Round
-   ↓
-Connect Phantom
-   ↓
-Predict
-   ↓
-Wait
-   ↓
-Resolve
-   ↓
-Result
-   ↓
-Verify on Solana Explorer
+Hackathon Release
+The current hackathon release is:
+Memedictions V2.1
+Solana Devnet
+Wallet Standard
+Public Testing
 
-Una vez completado este flujo, Memedictions tendrá una implementación funcional y públicamente verificable sobre Solana Devnet.
+Stable release tag:
+v2.1-wallet-standard-stable
+
+The stable release is intentionally separated from ongoing V2.2 oracle development.
 
 Disclaimer
-Memedictions se encuentra actualmente en fase experimental.
-La versión actual:
-- no procesa dinero real;
-- no procesa apuestas reales;
-- no ofrece productos financieros;
-- utiliza exclusivamente puntos ficticios;
-- está destinada a desarrollo y pruebas.
-Cualquier evolución futura que incorpore activos reales requerirá previamente una evaluación técnica, de seguridad y regulatoria adecuada.
+Memedictions is currently experimental software.
+The current version:
+- does not process real money;
+- does not provide real-money gambling;
+- does not provide financial products;
+- does not use real-value settlement;
+- uses fictitious PTS;
+- runs on Solana Devnet;
+- is intended for development, demonstration and testing.
+Any future implementation involving real assets would require additional technical, security, economic and regulatory review.
+
+Links
+Live Demo
+https://memedictions.vercel.app/test
+GitHub
+https://github.com/Jeet719/memedictions
+Solana Program
+6ePYpybRkB9EBZetcprsxXuxZbVF2xv9qcBUgd6nahfy
 
 Memedictions
-Prediction markets for the memecoin generation.
-Built on Solana..
-
-
-
-
-
->>>>>>> ca5552d (Prepare Memedictions Hackathon Testnet release)
+From memes to verifiable markets.
+Built on Solana.
