@@ -2672,6 +2672,199 @@ export default function DevnetPage() {
         <section style={cardStyle}>
           <div
             style={{
+              color: "#63e6a9",
+              fontWeight: 900,
+              fontSize: 12,
+              letterSpacing: ".08em",
+            }}
+          >
+            TESTING PÚBLICO · SOLANA DEVNET
+          </div>
+
+          <h2 style={{ marginTop: 8 }}>
+            Cómo probar Memedictions
+          </h2>
+
+          <p style={mutedTextStyle}>
+            Esta versión está disponible para testing público.
+            Todo funciona sobre Solana Devnet y no utiliza dinero real.
+          </p>
+
+          <div
+            style={{
+              marginTop: 14,
+              padding: "12px 14px",
+              borderRadius: 12,
+              background:
+                "rgba(123, 97, 255, 0.10)",
+              border:
+                "1px solid rgba(123, 97, 255, 0.28)",
+              color: "#ddd5ff",
+              lineHeight: 1.6,
+            }}
+          >
+            <strong>Recomendado:</strong>{" "}
+            usa Solflare y verifica que tu wallet esté conectada
+            a <strong>Solana Devnet</strong> antes de firmar.
+          </div>
+
+          <div
+            style={{
+              marginTop: 18,
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: 12,
+            }}
+          >
+            {[
+              [
+                "1",
+                "Conecta tu wallet",
+                "Usa una wallet compatible con Solana Wallet Standard.",
+              ],
+              [
+                "2",
+                "Ten SOL Devnet",
+                "Necesitas una pequeña cantidad de SOL de prueba para las comisiones de red.",
+              ],
+              [
+                "3",
+                "Crea una ronda",
+                "Selecciona mercado, duración y precio inicial.",
+              ],
+              [
+                "4",
+                "Haz tu predicción",
+                "Elige SUBE o BAJA y asigna PTS ficticios.",
+              ],
+              [
+                "5",
+                "Espera y resuelve",
+                "Al finalizar la ronda, introduce el precio final y resuelve on-chain.",
+              ],
+              [
+                "6",
+                "Verifica el resultado",
+                "La ronda, predicción y resolución pueden comprobarse en Solana Explorer.",
+              ],
+            ].map(([number, title, description]) => (
+              <div
+                key={number}
+                style={{
+                  padding: 16,
+                  borderRadius: 14,
+                  background:
+                    "rgba(12, 10, 17, 0.58)",
+                  border:
+                    "1px solid rgba(255,255,255,.07)",
+                }}
+              >
+                <div
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 999,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#7b61ff",
+                    color: "#ffffff",
+                    fontWeight: 900,
+                    fontSize: 13,
+                  }}
+                >
+                  {number}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 10,
+                    fontWeight: 800,
+                  }}
+                >
+                  {title}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 6,
+                    color: "#8f879a",
+                    fontSize: 13,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {description}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              marginTop: 16,
+              display: "flex",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <a
+              href="https://faucet.solana.com/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "11px 16px",
+                borderRadius: 12,
+                border: "1px solid #7b61ff",
+                background: "#7b61ff",
+                color: "#ffffff",
+                fontWeight: 800,
+                textDecoration: "none",
+              }}
+            >
+              Conseguir SOL Devnet ↗
+            </a>
+          </div>
+
+          <div
+            style={{
+              marginTop: 18,
+              padding: 14,
+              borderRadius: 12,
+              background:
+                "rgba(99, 230, 169, 0.08)",
+              border:
+                "1px solid rgba(99, 230, 169, 0.22)",
+              color: "#d9fff0",
+              lineHeight: 1.6,
+            }}
+          >
+            <strong>Importante:</strong>{" "}
+            los PTS utilizados en Memedictions son ficticios.
+            Esta demo no mueve tokens ni dinero real.
+            SOL Devnet se utiliza únicamente para pagar
+            las comisiones de las transacciones de prueba.
+          </div>
+
+          <p
+            style={{
+              ...mutedTextStyle,
+              marginTop: 14,
+              marginBottom: 0,
+            }}
+          >
+            Esta versión sigue en desarrollo.
+            Si encuentras algún problema durante las pruebas,
+            tu feedback es bienvenido.
+          </p>
+        </section>
+
+        <section style={cardStyle}>
+          <div
+            style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
