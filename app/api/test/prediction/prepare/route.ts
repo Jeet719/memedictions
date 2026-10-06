@@ -59,7 +59,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "Datos de predicción inválidos.",
+            "Invalid prediction data.",
         },
         {
           status: 400,
@@ -101,7 +101,7 @@ export async function POST(
             "V2_DEVNET_PROGRAM_NOT_DEPLOYED",
 
           error:
-            "El contrato Memedictions todavía no está desplegado en Solana Devnet.",
+            "The Memedictions program is not deployed on Solana Devnet.",
 
           programId:
             PROGRAM_ID
@@ -145,7 +145,7 @@ export async function POST(
       chainTime === null
     ) {
       throw new Error(
-        "No se pudo obtener el reloj de Solana Devnet."
+        "Could not retrieve the Solana Devnet clock."
       );
     }
 
@@ -164,7 +164,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "La ronda ya terminó según el reloj de Solana.",
+            "The round has ended according to the Solana clock.",
         },
         {
           status: 400,
@@ -203,7 +203,7 @@ export async function POST(
           ok: false,
 
           error:
-            "Esta wallet ya tiene una predicción en esta ronda.",
+            "This wallet already has a prediction in this round.",
         },
         {
           status: 409,
@@ -314,7 +314,7 @@ export async function POST(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo preparar la predicción en Devnet.",
+            : "Could not prepare the Devnet prediction.",
       },
       {
         status: 500,

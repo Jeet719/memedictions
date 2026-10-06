@@ -50,7 +50,7 @@ async function getBalance(
   ) {
     throw new Error(
       data?.error?.message ||
-      "RPC Devnet no devolvió un balance válido."
+      "The Devnet RPC did not return a valid balance."
     );
   }
 
@@ -75,7 +75,7 @@ export async function GET(
         {
           ok: false,
           error:
-            "Falta la dirección de wallet.",
+            "Wallet address is required.",
         },
         {
           status: 400,
@@ -160,7 +160,7 @@ export async function GET(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo consultar el saldo Devnet.",
+            : "Could not retrieve the Devnet balance.",
       },
       {
         status: 500,

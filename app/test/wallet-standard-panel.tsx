@@ -87,7 +87,7 @@ export default function WalletStandardPanel() {
             color: "#bbb2c8",
           }}
         >
-          Detectando wallets...
+          Detecting wallets...
         </div>
       </div>
     );
@@ -116,7 +116,7 @@ export default function WalletStandardPanel() {
             color: "#bbb2c8",
           }}
         >
-          Detectando wallets...
+          Detecting wallets...
         </div>
       </div>
     );
@@ -215,7 +215,7 @@ export default function WalletStandardPanel() {
             color: "#ffb3c7",
           }}
         >
-          SIN WALLETS DETECTADAS
+          NO WALLETS DETECTED
         </div>
 
         <p
@@ -226,9 +226,9 @@ export default function WalletStandardPanel() {
             lineHeight: 1.7,
           }}
         >
-          No se detectaron wallets compatibles con Solana Wallet Standard.
-          Si vas a probar la demo, abre Solflare y verifica que esté habilitada
-          en tu navegador.
+          No Solana Wallet Standard compatible wallets were detected.
+          To try the demo, open Solflare and make sure it is enabled
+          in your browser.
         </p>
       </div>
     );

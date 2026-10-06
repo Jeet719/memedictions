@@ -35,7 +35,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "Transacción Devnet inválida.",
+            "Invalid Devnet transaction.",
         },
         {
           status: 400,
@@ -100,7 +100,7 @@ export async function POST(
       confirmation.value.err
     ) {
       throw new Error(
-        `La transacción Devnet fue rechazada: ${JSON.stringify(
+        `The Devnet transaction was rejected: ${JSON.stringify(
           confirmation.value.err
         )}`
       );
@@ -128,7 +128,7 @@ export async function POST(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo enviar la predicción a Devnet.",
+            : "Could not send the prediction transaction to Devnet.",
       },
       {
         status: 500,

@@ -35,7 +35,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "Transacción de cierre Devnet inválida.",
+            "Invalid Devnet round resolution transaction.",
         },
         {
           status: 400,
@@ -97,7 +97,7 @@ export async function POST(
 
       if (confirmation.value.err) {
         throw new Error(
-          `El cierre de la ronda fue rechazado: ${JSON.stringify(
+          `Round resolution was rejected: ${JSON.stringify(
             confirmation.value.err
           )}`
         );
@@ -132,7 +132,7 @@ export async function POST(
 
     if (!confirmed) {
       throw new Error(
-        "No se pudo confirmar el cierre de la ronda en Devnet."
+        "Could not confirm the round resolution on Devnet."
       );
     }
 
@@ -158,7 +158,7 @@ export async function POST(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo enviar el cierre de la ronda a Devnet.",
+            : "Could not send the round resolution transaction to Devnet.",
       },
       {
         status: 500,

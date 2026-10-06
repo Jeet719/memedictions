@@ -294,7 +294,7 @@ export default function DevnetPage() {
         }
       } catch (error) {
         console.error(
-          "No se pudo verificar Memedictions en Devnet:",
+          "Could not verify Memedictions on Devnet:",
           error
         );
 
@@ -1007,7 +1007,7 @@ export default function DevnetPage() {
       ) {
         throw new Error(
           data?.error ||
-          "No se pudo consultar el saldo Devnet."
+          "Could not retrieve the Devnet balance."
         );
       }
 
@@ -1030,7 +1030,7 @@ export default function DevnetPage() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "No se pudo consultar el saldo Devnet."
+          : "Could not retrieve the Devnet balance."
       );
 
     } finally {
@@ -1159,7 +1159,7 @@ export default function DevnetPage() {
 
       setErrorMessage(
 
-        "La wallet no tiene SOL Devnet."
+        "The wallet has no Devnet SOL."
 
       );
 
@@ -1472,7 +1472,7 @@ export default function DevnetPage() {
 
       if (!signedTransaction) {
         throw new Error(
-          "La wallet no devolvió una transacción firmada."
+          "The wallet did not return a signed transaction."
         );
       }
 
@@ -1640,7 +1640,7 @@ export default function DevnetPage() {
       balance <= 0
     ) {
       setErrorMessage(
-        "La wallet no tiene SOL Devnet."
+        "The wallet has no Devnet SOL."
       );
       return;
     }
@@ -1932,7 +1932,7 @@ export default function DevnetPage() {
       balance <= 0
     ) {
       setErrorMessage(
-        "La wallet no tiene SOL Devnet."
+        "The wallet has no Devnet SOL."
       );
       return;
     }
@@ -3267,7 +3267,7 @@ export default function DevnetPage() {
           >
             <div>
               <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-                ESTADO GENERAL
+                OVERALL STATUS
               </div>
               <h2 style={{ margin: "6px 0 0" }}>Live Test Checklist</h2>
             </div>
@@ -3408,7 +3408,7 @@ export default function DevnetPage() {
                     color: "#ffffff",
                   }}
                 >
-                  Actualizar balance
+                  Refresh balance
                 </button>
               </div>
             </>
@@ -3884,7 +3884,7 @@ export default function DevnetPage() {
 
               <p style={{ ...mutedTextStyle, marginBottom: 0 }}>
                 The resolution endpoint uses the Solana Devnet clock as
-                autoridad temporal final.
+                the final authority for round timing.
               </p>
             </div>
           )}
@@ -3934,8 +3934,9 @@ export default function DevnetPage() {
                     marginBottom: 0,
                   }}
                 >
-                  Memedictions automatically calculates UP, DOWN or VOID
-                  by comparing the opening price with the closing price.
+                  The round authority enters the closing price manually. Memedictions
+                  compares it with the opening price to calculate UP, DOWN or VOID.
+                  This demo does not use an automatic price oracle.
                 </p>
               </div>
 
@@ -3966,7 +3967,7 @@ export default function DevnetPage() {
                   ? "Preparing resolution..."
                   : closeSending
                   ? "Signing and sending..."
-                  : "Resolve automatically"}
+                  : "Resolve round"}
               </button>
             </>
           )}
@@ -4062,11 +4063,18 @@ export default function DevnetPage() {
                   {resultVoid
                     ? "— VOID —"
                     : userWon
-                      ? "✓ YOU WON"
-                      : "✕ YOU LOST"}
+                      ? "✓ CORRECT PREDICTION"
+                      : "✕ INCORRECT PREDICTION"}
                 </h3>
               ) : (
                 <h3>Round completed</h3>
+              )}
+
+              {resultVoid && (
+                <p style={mutedTextStyle}>
+                  VOID means the opening and closing prices are equal. Neither
+                  direction wins, and no real funds are involved.
+                </p>
               )}
 
               <div
@@ -4087,7 +4095,7 @@ export default function DevnetPage() {
                   <div style={{ color: "#8f879a", fontSize: 12 }}>
                     OFFICIAL RESULT
                   </div>
-                  <strong>{resolvedOutcome}</strong>
+                  <strong>{resolvedOutcome === "SUBE" ? "UP" : resolvedOutcome === "BAJA" ? "DOWN" : resolvedOutcome}</strong>
                 </div>
 
                 <div
@@ -4128,7 +4136,7 @@ export default function DevnetPage() {
                       <div style={{ color: "#8f879a", fontSize: 12 }}>
                         YOUR PREDICTION
                       </div>
-                      <strong>{direction}</strong>
+                      <strong>{direction === "SUBE" ? "UP" : direction === "BAJA" ? "DOWN" : direction}</strong>
                     </div>
 
                     <div
@@ -4209,7 +4217,7 @@ export default function DevnetPage() {
                       letterSpacing: ".08em",
                     }}
                   >
-                    SIGUIENTE CICLO
+                    NEXT ROUND
                   </div>
 
                   <div
@@ -4235,7 +4243,7 @@ export default function DevnetPage() {
               )}
 
               <p style={{ ...mutedTextStyle, marginTop: 20, marginBottom: 0 }}>
-                Los PTS continúan siendo completamente ficticios. No se
+                PTS are test points with no monetary value. No
                 real tokens or funds are transferred.
               </p>
             </>
@@ -4255,7 +4263,7 @@ export default function DevnetPage() {
           >
             Your wallet does not have Devnet SOL available. You need a small
             amount of Devnet SOL to sign transactions in this demo.
-            El SOL Devnet no tiene valor real.
+            Devnet SOL has no monetary value.
           </div>
         )}
 

@@ -38,7 +38,7 @@ export async function GET(
         {
           ok: false,
           error:
-            "Falta la dirección de la ronda.",
+            "Round address is required.",
         },
         {
           status: 400,
@@ -89,7 +89,7 @@ export async function GET(
           code:
             "ROUND_NOT_FOUND",
           error:
-            "La ronda no existe en Devnet.",
+            "The round does not exist on Devnet.",
         },
         {
           status: 404,
@@ -349,7 +349,7 @@ export async function GET(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo recuperar el estado Devnet.",
+            : "Could not retrieve the Devnet state.",
       },
       {
         status: 500,

@@ -107,7 +107,7 @@ export async function recordDevnetMemo(
 ) {
   if (!wallet.publicKey) {
     throw new Error(
-      "Conecta Phantom antes de registrar."
+      "Connect Phantom before submitting a prediction."
     );
   }
 
@@ -128,7 +128,7 @@ export async function recordDevnetMemo(
     points > 10000
   ) {
     throw new Error(
-      "Datos de predicción inválidos."
+      "Invalid prediction data."
     );
   }
 
@@ -148,7 +148,7 @@ export async function recordDevnetMemo(
     balanceLamports <= 0
   ) {
     throw new Error(
-      "La wallet no tiene SOL Devnet para pagar la comisión."
+      "The wallet has no Devnet SOL to pay the transaction fee."
     );
   }
 
@@ -244,7 +244,7 @@ export async function recordDevnetMemo(
     simulation.value.err
   ) {
     throw new Error(
-      `Error de simulación: ${JSON.stringify(
+      `Simulation error: ${JSON.stringify(
         simulation.value.err
       )}`
     );
@@ -282,9 +282,9 @@ export async function recordDevnetMemo(
     confirmation.value.err
   ) {
     throw new Error(
-      `Transacción fallida: ${JSON.stringify(
+      `Transaction failed: ${JSON.stringify(
         confirmation.value.err
-      )}. Firma: ${signature}`
+      )}. Signature: ${signature}`
     );
   }
 

@@ -58,7 +58,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "Datos de ronda Devnet inválidos.",
+            "Invalid Devnet round data.",
         },
         {
           status: 400,
@@ -100,7 +100,7 @@ export async function POST(
             "V2_DEVNET_PROGRAM_NOT_DEPLOYED",
 
           error:
-            "El contrato Memedictions todavía no está desplegado en Solana Devnet.",
+            "The Memedictions program is not deployed on Solana Devnet.",
 
           programId:
             PROGRAM_ID.toBase58(),
@@ -125,7 +125,7 @@ export async function POST(
       clockAccount.data.length < 40
     ) {
       throw new Error(
-        "No se pudo obtener el Clock Sysvar de Solana Devnet."
+        "Could not retrieve the Solana Devnet Clock sysvar."
       );
     }
 
@@ -190,7 +190,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "La ronda derivada ya existe.",
+            "The derived round account already exists.",
         },
         {
           status: 409,
@@ -338,7 +338,7 @@ export async function POST(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo preparar la ronda Devnet.",
+            : "Could not prepare the Devnet round.",
       },
       {
         status: 500,

@@ -259,42 +259,42 @@
     {
       "code": 6000,
       "name": "InvalidMarket",
-      "msg": "Mercado invalido"
+      "msg": "Invalid market"
     },
     {
       "code": 6001,
       "name": "InvalidDirection",
-      "msg": "Direccion invalida"
+      "msg": "Invalid direction"
     },
     {
       "code": 6002,
       "name": "InvalidPoints",
-      "msg": "Puntos invalidos"
+      "msg": "Invalid points"
     },
     {
       "code": 6003,
       "name": "RoundClosed",
-      "msg": "Ronda cerrada"
+      "msg": "Round closed"
     },
     {
       "code": 6004,
       "name": "RoundStillOpen",
-      "msg": "Ronda abierta"
+      "msg": "Round open"
     },
     {
       "code": 6005,
       "name": "InvalidPrice",
-      "msg": "Precio invalido"
+      "msg": "Invalid price"
     },
     {
       "code": 6006,
       "name": "InvalidPriceTimestamp",
-      "msg": "Timestamp invalido"
+      "msg": "Invalid timestamp"
     },
     {
       "code": 6007,
       "name": "InvalidClosingTime",
-      "msg": "Cierre invalido"
+      "msg": "Invalid closing time"
     },
     {
       "code": 6008,

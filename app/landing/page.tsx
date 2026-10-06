@@ -306,8 +306,7 @@ export default function LandingPage() {
               href="#how"
               style={styles.navLink}
             >
-              Cómo funciona
-            </a>
+               How it works </a>
 
             <a
               href="#mvp"
@@ -324,60 +323,46 @@ export default function LandingPage() {
             </a>
 
             <Link
-              href="/"
+              href="/test"
               style={styles.button}
             >
-              Abrir demo
-            </Link>
+               Open demo </Link>
           </nav>
         </header>
 
         <section style={styles.hero}>
           <div style={styles.eyebrow}>
-            CONSTRUIDO SOBRE SOLANA
-          </div>
+             BUILT ON SOLANA </div>
 
           <h1 style={styles.heroTitle}>
-            Predice memecoins.
-            <br />
+             Predict memecoins. <br />
 
             <span
               style={styles.gradientText}
             >
-              Resuelve on-chain.
-            </span>
+               Resolve on-chain. </span>
           </h1>
 
           <p style={styles.description}>
-            Memedictions es una plataforma de
-            predicciones donde los usuarios
-            eligen si una memecoin subirá o
-            bajará durante una ronda
-            determinada, registrando
-            predicciones y resultados sobre
-            Solana.
-          </p>
+             Memedictions lets users predict whether a memecoin will rise or fall
+            during a round, recording predictions and results on Solana. </p>
 
           <div style={styles.actions}>
             <Link
-              href="/"
+              href="/test"
               style={styles.button}
             >
-              Probar MVP
-            </Link>
+               Try the MVP </Link>
 
             <a
               href="#mvp"
               style={styles.secondaryButton}
             >
-              Ver avances
-            </a>
+               View progress </a>
           </div>
 
           <p style={styles.disclaimer}>
-            MVP experimental · puntos
-            ficticios · sin fondos reales.
-          </p>
+             Experimental MVP · test points with no monetary value · no real funds. </p>
         </section>
 
         <section
@@ -385,34 +370,32 @@ export default function LandingPage() {
           style={styles.section}
         >
           <div style={styles.eyebrow}>
-            CÓMO FUNCIONA
-          </div>
+             HOW IT WORKS </div>
 
           <h2 style={styles.sectionTitle}>
-            Una predicción. Cinco pasos.
-          </h2>
+             One prediction. Four steps. </h2>
 
           <div style={styles.grid4}>
             {[
               [
                 "01",
-                "Elegir",
-                "Selecciona una memecoin y una ronda.",
+                "Choose",
+                "Select a memecoin and a round.",
               ],
               [
                 "02",
-                "Predecir",
-                "Elige SUBE o BAJA y registra puntos ficticios.",
+                "Predict",
+                "Choose UP or DOWN and submit test points.",
               ],
               [
                 "03",
-                "Esperar",
-                "La ronda permanece abierta hasta el tiempo definido.",
+                "Wait",
+                "The round remains open until its scheduled closing time.",
               ],
               [
                 "04",
-                "Resolver",
-                "El resultado queda registrado on-chain.",
+                "Resolve",
+                "The round authority enters the closing price and records the result on-chain.",
               ],
             ].map(
               ([number, title, text]) => (
@@ -456,36 +439,29 @@ export default function LandingPage() {
           <div style={styles.mvpLayout}>
             <div>
               <div style={styles.eyebrow}>
-                MVP FUNCIONAL
-              </div>
+                 FUNCTIONAL MVP </div>
 
               <h2
                 style={
                   styles.sectionTitle
                 }
               >
-                El ciclo completo ya
-                funciona.
-              </h2>
+                 The complete lifecycle
+                is working. </h2>
 
               <p
                 style={
                   styles.sectionText
                 }
               >
-                Memedictions ya validó
-                creación, predicción,
-                cierre, resultado y
-                cálculo de recompensas de
-                extremo a extremo en
-                Solana Localnet.
-              </p>
+                 The original Localnet validation covered round creation, predictions,
+                closing, results and proportional test-point calculations.
+                The current public MVP records predictions and results on Devnet. </p>
             </div>
 
             <div style={styles.card}>
               <div style={styles.eyebrow}>
-                RONDA VALIDADA
-              </div>
+                 LOCALNET TEST EXAMPLE </div>
 
               <h2
                 style={{
@@ -510,8 +486,7 @@ export default function LandingPage() {
                       styles.metricLabel
                     }
                   >
-                    Pool total
-                  </div>
+                     Total test-point pool </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -527,8 +502,7 @@ export default function LandingPage() {
                       styles.metricLabel
                     }
                   >
-                    Lado ganador
-                  </div>
+                     Winning side </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -544,8 +518,7 @@ export default function LandingPage() {
                       styles.metricLabel
                     }
                   >
-                    Lado perdedor
-                  </div>
+                     Losing side </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -561,19 +534,16 @@ export default function LandingPage() {
                       styles.metricLabel
                     }
                   >
-                    Distribuidos
-                  </div>
+                     Allocated test points </div>
                 </div>
               </div>
 
               <div style={styles.pills}>
                 <span style={styles.pill}>
-                  3 predicciones
-                </span>
+                   3 test predictions </span>
 
                 <span style={styles.pill}>
-                  flujo on-chain
-                </span>
+                   on-chain flow </span>
 
                 <span style={styles.pill}>
                   Localnet
@@ -584,8 +554,7 @@ export default function LandingPage() {
 
           <div style={styles.checklist}>
             <h3>
-              Ya implementado
-            </h3>
+               Implemented </h3>
 
             <div
               style={
@@ -593,12 +562,12 @@ export default function LandingPage() {
               }
             >
               {[
-                "✓ Rondas on-chain",
-                "✓ Predicciones on-chain",
-                "✓ Cierre de ronda",
-                "✓ Cuentas RoundResult",
-                "✓ Cálculo de recompensas",
-                "✓ Demo completa desde UI",
+                "✓ On-chain rounds",
+                "✓ On-chain predictions",
+                "✓ Round closing",
+                "✓ RoundResult accounts",
+                "✓ Localnet test-point calculations",
+                "✓ Complete demo interface",
               ].map((item) => (
                 <div
                   key={item}
@@ -613,21 +582,16 @@ export default function LandingPage() {
 
         <section style={styles.section}>
           <div style={styles.eyebrow}>
-            ESTADO DEL PROYECTO
-          </div>
+             PROJECT STATUS </div>
 
           <h2 style={styles.sectionTitle}>
-            Construido, probado y
-            avanzando.
-          </h2>
+             Built, tested and
+            moving forward. </h2>
 
           <p style={styles.sectionText}>
-            El núcleo del MVP ya funciona
-            sobre Solana Localnet. El
-            siguiente gran hito es el
-            despliegue público y las
-            pruebas en Devnet.
-          </p>
+             The public V2.1 MVP runs on Solana Devnet using test points.
+            Resolution uses a manually entered closing price.
+            Price-oracle integration remains experimental. </p>
 
           <div style={styles.statusGrid}>
             <div style={styles.statusBox}>
@@ -636,53 +600,44 @@ export default function LandingPage() {
               </div>
 
               <div style={styles.value}>
-                ✓ Operativo
-              </div>
+                 ✓ Operational </div>
             </div>
 
             <div style={styles.statusBox}>
               <div style={styles.label}>
-                RED ACTUAL
-              </div>
+                 CURRENT NETWORK </div>
 
               <div style={styles.value}>
-                ✓ Solana Localnet
-              </div>
+                 ✓ Solana Devnet </div>
             </div>
 
             <div style={styles.statusBox}>
               <div style={styles.label}>
-                SIGUIENTE RED
-              </div>
+                 PRICE ORACLE </div>
 
               <div style={styles.value}>
-                → Solana Devnet
-              </div>
+                 → Experimental </div>
             </div>
 
             <div style={styles.statusBox}>
               <div style={styles.label}>
-                RESOLUCIÓN
-              </div>
+                 RESOLUTION </div>
 
               <div style={styles.value}>
-                → Autoridad demo
-              </div>
+                 → Manual round authority </div>
             </div>
           </div>
 
           <div style={styles.tech}>
             <div style={styles.eyebrow}>
-              TECNOLOGÍA
-            </div>
+               TECHNOLOGY </div>
 
             <h3
               style={{
                 fontSize: 24,
               }}
             >
-              Construido con
-            </h3>
+               Built with </h3>
 
             <div style={styles.pills}>
               {[
@@ -713,30 +668,29 @@ export default function LandingPage() {
           </div>
 
           <h2 style={styles.sectionTitle}>
-            Lo que viene.
-          </h2>
+             What comes next. </h2>
 
           <div style={styles.grid4}>
             {[
               [
                 "01",
                 "Devnet",
-                "Desplegar y verificar Memedictions públicamente en Solana Devnet.",
+                "Expand public Devnet testing and collect reproducible evidence.",
               ],
               [
                 "02",
                 "Wallet flow",
-                "Completar la experiencia pública de transacciones con Phantom.",
+                "Validate the public transaction flow with Solflare and Backpack.",
               ],
               [
                 "03",
-                "Oracle de precio",
-                "Resolver rondas automáticamente mediante precios de mercado.",
+                "Price oracle",
+                "Complete and validate oracle-based price resolution in the experimental version.",
               ],
               [
                 "04",
-                "Token SPL",
-                "Pasar de puntos ficticios a staking y settlement con token de prueba.",
+                "SPL test token",
+                "Explore staking and settlement with a test token instead of test points.",
               ],
             ].map(
               ([number, title, text]) => (
@@ -786,10 +740,8 @@ export default function LandingPage() {
               letterSpacing: "-2px",
             }}
           >
-            Memecoins hoy.
-            <br />
-            Predicciones mañana.
-          </h2>
+             Memecoins today. <br />
+             Predictions tomorrow. </h2>
 
           <p
             style={{
@@ -797,21 +749,17 @@ export default function LandingPage() {
               marginBottom: 30,
             }}
           >
-            Construido sobre Solana.
-          </p>
+             Built on Solana. </p>
 
           <Link
-            href="/"
+            href="/test"
             style={styles.button}
           >
-            Probar el MVP
-          </Link>
+             Try the MVP </Link>
         </section>
 
         <footer style={styles.footer}>
-          memedictions.fun · Construido
-          sobre Solana · MVP en desarrollo
-        </footer>
+           memedictions.fun · Built on Solana · Experimental Devnet MVP </footer>
       </div>
     </main>
   );

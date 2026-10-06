@@ -35,7 +35,7 @@ export async function POST(
         {
           ok: false,
           error:
-            "Transacción de ronda Devnet inválida.",
+            "Invalid Devnet round transaction.",
         },
         {
           status: 400,
@@ -99,7 +99,7 @@ export async function POST(
       confirmation.value.err
     ) {
       throw new Error(
-        `La creación de la ronda fue rechazada: ${JSON.stringify(
+        `Round creation was rejected: ${JSON.stringify(
           confirmation.value.err
         )}`
       );
@@ -127,7 +127,7 @@ export async function POST(
         error:
           error instanceof Error
             ? error.message
-            : "No se pudo enviar la ronda a Devnet.",
+            : "Could not send the round transaction to Devnet.",
       },
       {
         status: 500,
