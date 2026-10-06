@@ -649,7 +649,7 @@ export default function DevnetPage() {
 
     setErrorMessage("");
     setMessage(
-      "Nueva ronda lista. La wallet continúa conectada."
+      "New round ready. Your wallet remains connected."
     );
 
     setNextRoundCountdown(null);
@@ -859,7 +859,7 @@ export default function DevnetPage() {
       ) {
         throw new Error(
           data.error ||
-          "No se pudo recuperar la ronda desde Devnet."
+          "Could not recover the round from Devnet."
         );
       }
 
@@ -1074,7 +1074,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet.signer) {
       setErrorMessage(
-        "La wallet conectada no permite firmar transacciones."
+        "The connected wallet cannot sign transactions."
       );
       return;
     }
@@ -1106,7 +1106,7 @@ export default function DevnetPage() {
 
       setErrorMessage(
 
-        "El mercado debe contener entre 2 y 16 caracteres."
+        "The market name must contain between 2 and 16 characters."
 
       );
 
@@ -1130,7 +1130,7 @@ export default function DevnetPage() {
 
       setErrorMessage(
 
-        "La duración de la ronda no es válida."
+        "The round duration is invalid."
 
       );
 
@@ -1143,7 +1143,7 @@ export default function DevnetPage() {
       openingPrice <= 0
     ) {
       setErrorMessage(
-        "El precio inicial debe ser un entero positivo."
+        "The opening price must be a positive integer."
       );
 
       return;
@@ -1271,7 +1271,7 @@ export default function DevnetPage() {
 
           throw new Error(
 
-            "El contrato Memedictions todavía no está desplegado en Devnet."
+            "The Memedictions contract is not deployed on Devnet yet."
 
           );
 
@@ -1281,7 +1281,7 @@ export default function DevnetPage() {
 
           prepared.error ||
 
-          "No se pudo preparar la ronda Devnet."
+          "Could not prepare the Devnet round."
 
         );
 
@@ -1311,7 +1311,7 @@ export default function DevnetPage() {
 
         throw new Error(
 
-          "La respuesta de preparación de ronda está incompleta."
+          "The round preparation response is incomplete."
 
         );
 
@@ -1368,7 +1368,7 @@ export default function DevnetPage() {
 
           ? error.message
 
-          : "No se pudo crear la ronda Devnet."
+          : "Could not create the Devnet round."
 
       );
 
@@ -1409,7 +1409,7 @@ export default function DevnetPage() {
 
     if (!preparedRound) {
       setErrorMessage(
-        "Primero prepara la ronda."
+        "Prepare the round first."
       );
       return;
     }
@@ -1422,7 +1422,7 @@ export default function DevnetPage() {
 
       if (!connectedWallet.signer) {
         throw new Error(
-          "La wallet conectada no tiene un signer disponible."
+          "The connected wallet does not have an available signer."
         );
       }
 
@@ -1433,7 +1433,7 @@ export default function DevnetPage() {
         )
       ) {
         throw new Error(
-          "La wallet conectada no soporta firma de transacciones."
+          "The connected wallet does not support transaction signing."
         );
       }
 
@@ -1517,7 +1517,7 @@ export default function DevnetPage() {
       ) {
         throw new Error(
           sent.error ||
-          "No se pudo enviar la ronda firmada a Devnet."
+          "Could not send the signed round transaction to Devnet."
         );
       }
 
@@ -1578,7 +1578,7 @@ export default function DevnetPage() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "No se pudo crear la ronda Devnet."
+          : "Could not create the Devnet round."
       );
 
     } finally {
@@ -1600,7 +1600,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet.signer) {
       setErrorMessage(
-        "La wallet conectada no permite firmar transacciones."
+        "The connected wallet cannot sign transactions."
       );
       return;
     }
@@ -1612,14 +1612,14 @@ export default function DevnetPage() {
       )
     ) {
       setErrorMessage(
-        "La wallet conectada no soporta firma de transacciones."
+        "The connected wallet does not support transaction signing."
       );
       return;
     }
 
     if (!roundAddress) {
       setErrorMessage(
-        "Primero debes crear una ronda Devnet."
+        "Create a Devnet round first."
       );
       return;
     }
@@ -1630,7 +1630,7 @@ export default function DevnetPage() {
       points > 10000
     ) {
       setErrorMessage(
-        "Los puntos deben estar entre 1 y 10.000."
+        "PTS must be between 1 and 10,000."
       );
       return;
     }
@@ -1696,13 +1696,13 @@ export default function DevnetPage() {
           "V2_DEVNET_PROGRAM_NOT_DEPLOYED"
         ) {
           throw new Error(
-            "El contrato Memedictions todavía no está desplegado en Devnet."
+            "The Memedictions contract is not deployed on Devnet yet."
           );
         }
 
         throw new Error(
           prepared.error ||
-          "No se pudo preparar la predicción Devnet."
+          "Could not prepare the Devnet prediction."
         );
       }
 
@@ -1713,7 +1713,7 @@ export default function DevnetPage() {
           undefined
       ) {
         throw new Error(
-          "La respuesta de preparación de predicción está incompleta."
+          "The prediction preparation response is incomplete."
         );
       }
 
@@ -1757,7 +1757,7 @@ export default function DevnetPage() {
 
       if (!signedTransaction) {
         throw new Error(
-          "La wallet no devolvió una predicción firmada."
+          "The wallet did not return a signed prediction transaction."
         );
       }
 
@@ -1815,7 +1815,7 @@ export default function DevnetPage() {
       ) {
         throw new Error(
           sent.error ||
-          "No se pudo enviar la predicción Devnet."
+          "Could not send the Devnet prediction transaction."
         );
       }
 
@@ -1846,7 +1846,7 @@ export default function DevnetPage() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "No se pudo registrar la predicción."
+          : "Could not register the prediction."
       );
 
     } finally {
@@ -1893,7 +1893,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet.signer) {
       setErrorMessage(
-        "La wallet conectada no permite firmar transacciones."
+        "The connected wallet cannot sign transactions."
       );
       return;
     }
@@ -1905,14 +1905,14 @@ export default function DevnetPage() {
       )
     ) {
       setErrorMessage(
-        "La wallet conectada no soporta firma de transacciones."
+        "The connected wallet does not support transaction signing."
       );
       return;
     }
 
     if (!roundAddress) {
       setErrorMessage(
-        "No existe una ronda Devnet para resolver."
+        "There is no Devnet round available to resolve."
       );
       return;
     }
@@ -1922,7 +1922,7 @@ export default function DevnetPage() {
       closingPrice <= 0
     ) {
       setErrorMessage(
-        "El precio final debe ser un entero positivo."
+        "The closing price must be a positive integer."
       );
       return;
     }
@@ -1986,7 +1986,7 @@ export default function DevnetPage() {
           "V2_DEVNET_PROGRAM_NOT_DEPLOYED"
         ) {
           throw new Error(
-            "El contrato Memedictions todavía no está desplegado en Devnet."
+            "The Memedictions contract is not deployed on Devnet yet."
           );
         }
 
@@ -1995,7 +1995,7 @@ export default function DevnetPage() {
           "ROUND_NOT_FINISHED"
         ) {
           throw new Error(
-            "La ronda todavía no terminó según el reloj de Solana. Espera unos segundos y vuelve a intentarlo."
+            "The round has not ended according to the Solana clock yet. Wait a few seconds and try again."
           );
         }
 
@@ -2004,13 +2004,13 @@ export default function DevnetPage() {
           "ROUND_ALREADY_RESOLVED"
         ) {
           throw new Error(
-            "Esta ronda ya fue resuelta on-chain."
+            "This round has already been resolved on-chain."
           );
         }
 
         throw new Error(
           prepared.error ||
-          "No se pudo preparar la resolución Devnet."
+          "Could not prepare the Devnet resolution."
         );
       }
 
@@ -2022,7 +2022,7 @@ export default function DevnetPage() {
         !prepared.resultAddress
       ) {
         throw new Error(
-          "La respuesta de resolución está incompleta."
+          "The resolution response is incomplete."
         );
       }
 
@@ -2066,7 +2066,7 @@ export default function DevnetPage() {
 
       if (!signedTransaction) {
         throw new Error(
-          "La wallet no devolvió una resolución firmada."
+          "The wallet did not return a signed resolution transaction."
         );
       }
 
@@ -2124,7 +2124,7 @@ export default function DevnetPage() {
       ) {
         throw new Error(
           sent.error ||
-          "No se pudo resolver la ronda en Devnet."
+          "Could not resolve the round on Devnet."
         );
       }
 
@@ -2161,7 +2161,7 @@ export default function DevnetPage() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "No se pudo resolver la ronda Devnet."
+          : "Could not resolve the Devnet round."
       );
 
     } finally {
@@ -3127,7 +3127,7 @@ export default function DevnetPage() {
                 fontWeight: 700,
               }}
             >
-              {flowCompleted ? "Flujo completado" : "Preparando pruebas"}
+              {flowCompleted ? "Flow completed" : "Preparing test"}
             </span>
           </div>
 
@@ -3140,12 +3140,12 @@ export default function DevnetPage() {
             }}
           >
             {[
-              [walletReady, "Wallet conectada"],
-              [hasBalance, "SOL Devnet disponible"],
+              [walletReady, "Wallet connected"],
+              [hasBalance, "Devnet SOL available"],
               [roundReady, "Devnet round created"],
               [predictionReady, "Prediction registered"],
               [resultReady, "Round resolved"],
-              [programDeployed, "Contrato Memedictions desplegado"],
+              [programDeployed, "Memedictions contract deployed"],
             ].map(([ready, label]) => (
               <div
                 key={String(label)}
@@ -3333,9 +3333,9 @@ export default function DevnetPage() {
                 disabled={roundReady}
                 style={inputStyle}
               >
-                <option value={120}>2 minutos</option>
-                <option value={180}>3 minutos</option>
-                <option value={300}>5 minutos</option>
+                <option value={120}>2 minutes</option>
+                <option value={180}>3 minutes</option>
+                <option value={300}>5 minutes</option>
               </select>
             </label>
 
@@ -3382,7 +3382,7 @@ export default function DevnetPage() {
             }}
           >
             {roundPreparing
-              ? "Preparando ronda..."
+              ? "Preparing round..."
               : roundSending
               ? "Firmando y enviando..."
               : roundReady
@@ -3491,7 +3491,7 @@ export default function DevnetPage() {
                 border: "1px solid #332940",
               }}
             >
-              Primero crea una ronda de prueba.
+              Create a test round first.
             </div>
           )}
 
@@ -3520,7 +3520,7 @@ export default function DevnetPage() {
                 fontWeight: 900,
               }}
             >
-              ↑ SUBE
+              ↑ UP
             </button>
 
             <button
@@ -3540,7 +3540,7 @@ export default function DevnetPage() {
                 fontWeight: 900,
               }}
             >
-              ↓ BAJA
+              ↓ DOWN
             </button>
           </div>
 
@@ -3587,7 +3587,7 @@ export default function DevnetPage() {
             }}
           >
             {predictionPreparing
-              ? "Preparando predicción..."
+              ? "Preparing prediction..."
               : predictionSending
               ? "Firmando y enviando..."
               : predictionReady
@@ -3650,7 +3650,7 @@ export default function DevnetPage() {
                   fontWeight: 700,
                 }}
               >
-                Ver predicción en Solana Explorer ↗
+                View prediction on Solana Explorer ↗
               </a>
             </div>
           )}
@@ -3723,7 +3723,7 @@ export default function DevnetPage() {
               )}
 
               <p style={{ ...mutedTextStyle, marginBottom: 0 }}>
-                El endpoint de resolución utiliza el reloj de Solana Devnet como
+                The resolution endpoint uses the Solana Devnet clock as
                 autoridad temporal final.
               </p>
             </div>
@@ -3742,7 +3742,7 @@ export default function DevnetPage() {
                   fontWeight: 700,
                 }}
               >
-                La ronda está lista para resolver.
+                The round is ready to resolve.
               </div>
 
               <div
@@ -3752,7 +3752,7 @@ export default function DevnetPage() {
               >
                 <label>
                   <span style={{ fontWeight: 700 }}>
-                    Precio final
+                    Closing price
                   </span>
 
                   <input
@@ -3774,8 +3774,8 @@ export default function DevnetPage() {
                     marginBottom: 0,
                   }}
                 >
-                  Memedictions calcula automáticamente SUBE, BAJA o VOID
-                  comparando el precio inicial con el precio final.
+                  Memedictions automatically calculates UP, DOWN or VOID
+                  by comparing the opening price with the closing price.
                 </p>
               </div>
 
@@ -3803,7 +3803,7 @@ export default function DevnetPage() {
                 }}
               >
                 {closePreparing
-                  ? "Preparando resolución..."
+                  ? "Preparing resolution..."
                   : closeSending
                   ? "Firmando y enviando..."
                   : "Resolve automatically"}
@@ -3925,7 +3925,7 @@ export default function DevnetPage() {
                   }}
                 >
                   <div style={{ color: "#8f879a", fontSize: 12 }}>
-                    RESULTADO OFICIAL
+                    OFFICIAL RESULT
                   </div>
                   <strong>{resolvedOutcome}</strong>
                 </div>
@@ -3938,7 +3938,7 @@ export default function DevnetPage() {
                   }}
                 >
                   <div style={{ color: "#8f879a", fontSize: 12 }}>
-                    PRECIO INICIAL
+                    OPENING PRICE
                   </div>
                   <strong>{openingPrice}</strong>
                 </div>
@@ -3951,7 +3951,7 @@ export default function DevnetPage() {
                   }}
                 >
                   <div style={{ color: "#8f879a", fontSize: 12 }}>
-                    PRECIO FINAL
+                    CLOSING PRICE
                   </div>
                   <strong>{closingPrice}</strong>
                 </div>
@@ -3966,7 +3966,7 @@ export default function DevnetPage() {
                       }}
                     >
                       <div style={{ color: "#8f879a", fontSize: 12 }}>
-                        TU PREDICCIÓN
+                        YOUR PREDICTION
                       </div>
                       <strong>{direction}</strong>
                     </div>
@@ -3979,7 +3979,7 @@ export default function DevnetPage() {
                       }}
                     >
                       <div style={{ color: "#8f879a", fontSize: 12 }}>
-                        PUNTOS FICTICIOS
+                        FICTITIOUS PTS
                       </div>
                       <strong>{points} PTS</strong>
                     </div>
@@ -4011,7 +4011,7 @@ export default function DevnetPage() {
               {resultSignature && (
                 <div style={{ marginTop: 16 }}>
                   <p style={{ ...mutedTextStyle, margin: 0 }}>
-                    ✓ Resolución registrada en Solana Devnet.
+                    ✓ Resolution registered on Solana Devnet.
                   </p>
                   <a
                     href={explorerTransactionUrl(resultSignature)}
@@ -4025,7 +4025,7 @@ export default function DevnetPage() {
                       fontWeight: 700,
                     }}
                   >
-                    Ver resolución en Solana Explorer ↗
+                    View resolution on Solana Explorer ↗
                   </a>
                 </div>
               )}
@@ -4059,7 +4059,7 @@ export default function DevnetPage() {
                       fontWeight: 900,
                     }}
                   >
-                    Nueva ronda en {nextRoundCountdown}…
+                    New round in {nextRoundCountdown}…
                   </div>
 
                   <div
@@ -4069,14 +4069,14 @@ export default function DevnetPage() {
                       fontSize: 13,
                     }}
                   >
-                    La wallet seguirá conectada.
+                    Your wallet will remain connected.
                   </div>
                 </div>
               )}
 
               <p style={{ ...mutedTextStyle, marginTop: 20, marginBottom: 0 }}>
                 Los PTS continúan siendo completamente ficticios. No se
-                transfieren tokens ni fondos reales.
+                real tokens or funds are transferred.
               </p>
             </>
           )}
@@ -4093,7 +4093,7 @@ export default function DevnetPage() {
               color: "#ffcf88",
             }}
           >
-            Tu wallet no tiene SOL Devnet disponible. Necesitas una pequeña
+            Your wallet does not have Devnet SOL available. You need a small
             cantidad de SOL de prueba para firmar transacciones en esta demo.
             El SOL Devnet no tiene valor real.
           </div>

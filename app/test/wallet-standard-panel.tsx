@@ -142,7 +142,7 @@ export default function WalletStandardPanel() {
               display: "inline-block",
             }}
           />
-          WALLET CONECTADA
+          WALLET CONNECTED
         </div>
 
         <div
@@ -277,7 +277,7 @@ export default function WalletStandardPanel() {
             color: "#cbb9ff",
           }}
         >
-          {wallets.length} wallet{wallets.length === 1 ? "" : "s"} disponible{wallets.length === 1 ? "" : "s"}
+          {wallets.length} wallet{wallets.length === 1 ? "" : "s"} available
         </div>
       </div>
 
