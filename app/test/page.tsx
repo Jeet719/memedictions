@@ -2389,437 +2389,625 @@ export default function DevnetPage() {
           style={{
             position: "relative",
             overflow: "hidden",
-            padding: "34px 30px 26px",
-            borderRadius: 26,
-            border: "1px solid rgba(153, 69, 255, 0.28)",
+            borderRadius: 30,
+            border: "1px solid rgba(153,69,255,.26)",
             background:
-              "linear-gradient(135deg, rgba(31,20,47,.98), rgba(15,13,23,.98) 55%, rgba(10,23,21,.96))",
+              "linear-gradient(135deg, rgba(18,12,30,.99), rgba(7,8,16,.99) 55%, rgba(5,15,18,.98))",
             boxShadow:
-              "0 28px 90px rgba(0,0,0,.34), 0 0 80px rgba(153,69,255,.06)",
+              "0 32px 100px rgba(0,0,0,.40), 0 0 90px rgba(153,69,255,.07)",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              width: 320,
-              height: 320,
-              borderRadius: "50%",
-              background: "rgba(153,69,255,.12)",
-              filter: "blur(90px)",
-              top: -170,
-              left: -90,
-              pointerEvents: "none",
-            }}
-          />
-
-          <div
-            style={{
-              position: "absolute",
-              width: 280,
-              height: 280,
-              borderRadius: "50%",
-              background: "rgba(20,241,149,.08)",
-              filter: "blur(90px)",
-              right: -100,
-              bottom: -170,
-              pointerEvents: "none",
-            }}
-          />
-
+          {/* TOP BAR */}
           <div
             style={{
               position: "relative",
-              zIndex: 1,
+              zIndex: 5,
+              padding: "18px 26px",
+              borderBottom: "1px solid rgba(255,255,255,.07)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 16,
+              flexWrap: "wrap",
+              background: "rgba(8,8,15,.72)",
+              backdropFilter: "blur(14px)",
             }}
           >
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: 20,
-                flexWrap: "wrap",
+                alignItems: "center",
+                gap: 12,
               }}
             >
               <div
                 style={{
-                  maxWidth: 760,
+                  width: 38,
+                  height: 38,
+                  borderRadius: 12,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background:
+                    "linear-gradient(135deg, #9945ff 0%, #00c2ff 48%, #14f195 100%)",
+                  color: "#08070c",
+                  fontSize: 19,
+                  fontWeight: 950,
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 9,
-                    color: "#14f195",
-                    fontWeight: 900,
-                    fontSize: 11,
-                    letterSpacing: ".15em",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      background: programDeployed ? "#14f195" : "#ffcf88",
-                      boxShadow: programDeployed
-                        ? "0 0 18px rgba(20,241,149,.95)"
-                        : "0 0 18px rgba(255,207,136,.75)",
-                    }}
-                  />
+                M
+              </div>
 
-                  {programDeployed
-                    ? "LIVE ON SOLANA DEVNET"
-                    : "SOLANA DEVNET · DEPLOYMENT PENDING"}
-                </div>
+              <div
+                style={{
+                  fontSize: 21,
+                  fontWeight: 950,
+                  letterSpacing: "-.035em",
+                }}
+              >
+                Memedictions
+              </div>
+            </div>
 
-                <div
+            <div
+              style={{
+                display: "flex",
+                gap: 8,
+                flexWrap: "wrap",
+              }}
+            >
+              {["Demo", "How it works", "GitHub"].map((label, index) => (
+                <span
+                  key={label}
                   style={{
-                    marginTop: 18,
-                    fontSize: 13,
-                    fontWeight: 900,
-                    letterSpacing: ".18em",
-                    color: "#aaa1b5",
-                  }}
-                >
-                  MEMEDICTIONS
-                </div>
-
-                <h1
-                  style={{
-                    margin: "8px 0 0",
-                    fontSize: "clamp(42px, 8vw, 76px)",
-                    lineHeight: .95,
-                    letterSpacing: "-.055em",
-                    fontWeight: 950,
+                    padding: "9px 13px",
+                    borderRadius: 999,
+                    border:
+                      index === 0
+                        ? "1px solid rgba(153,69,255,.38)"
+                        : "1px solid rgba(255,255,255,.07)",
                     background:
-                      "linear-gradient(90deg, #ffffff 0%, #c8b5ff 38%, #9945ff 62%, #14f195 100%)",
+                      index === 0
+                        ? "rgba(153,69,255,.12)"
+                        : "rgba(255,255,255,.025)",
+                    color: "#ddd5e7",
+                    fontSize: 12,
+                    fontWeight: 800,
+                  }}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 9,
+                padding: "9px 14px",
+                borderRadius: 999,
+                border: "1px solid rgba(20,241,149,.38)",
+                background: "rgba(7,31,26,.68)",
+                color: "#5affcb",
+                fontSize: 12,
+                fontWeight: 900,
+              }}
+            >
+              <span
+                style={{
+                  width: 9,
+                  height: 9,
+                  borderRadius: "50%",
+                  background: "#14f195",
+                  boxShadow: "0 0 14px rgba(20,241,149,.9)",
+                }}
+              />
+              Live on Devnet
+            </div>
+          </div>
+
+          {/* HERO */}
+          <div
+            style={{
+              position: "relative",
+              minHeight: 610,
+              isolation: "isolate",
+            }}
+          >
+            {/* MONITO CINEMATIC BACKGROUND */}
+            <img
+              src="/branding/monito-hero-bg.png"
+              alt="Monito in the Memedictions trading environment"
+              loading="eager"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+                zIndex: -4,
+              }}
+            />
+
+            {/* LEFT DARK FADE FOR REAL HTML TEXT */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: -3,
+                background:
+                  "linear-gradient(90deg, rgba(6,6,13,.98) 0%, rgba(6,6,13,.94) 28%, rgba(6,6,13,.72) 48%, rgba(6,6,13,.20) 70%, rgba(6,6,13,.08) 100%)",
+              }}
+            />
+
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: -2,
+                background:
+                  "linear-gradient(180deg, rgba(7,7,14,.05) 40%, rgba(7,7,14,.42) 100%), radial-gradient(circle at 65% 35%, rgba(153,69,255,.10), transparent 28%)",
+              }}
+            />
+
+            <div
+              style={{
+                position: "relative",
+                zIndex: 2,
+                padding: "38px 32px 32px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                minHeight: 540,
+                maxWidth: 690,
+              }}
+            >
+              <div
+                style={{
+                  display: "inline-flex",
+                  width: "fit-content",
+                  alignItems: "center",
+                  gap: 9,
+                  padding: "9px 14px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(20,241,149,.34)",
+                  background: "rgba(5,26,23,.70)",
+                  color: "#36ffc0",
+                  fontSize: 11,
+                  fontWeight: 900,
+                  letterSpacing: ".10em",
+                }}
+              >
+                <span
+                  style={{
+                    width: 9,
+                    height: 9,
+                    borderRadius: "50%",
+                    background: programDeployed ? "#14f195" : "#ffcf88",
+                    boxShadow: programDeployed
+                      ? "0 0 14px rgba(20,241,149,.95)"
+                      : "0 0 14px rgba(255,207,136,.75)",
+                  }}
+                />
+
+                {programDeployed
+                  ? "LIVE ON SOLANA DEVNET"
+                  : "DEPLOYMENT PENDING"}
+              </div>
+
+              <div
+                style={{
+                  marginTop: 20,
+                  color: "#b9acc8",
+                  fontSize: 12,
+                  fontWeight: 900,
+                  letterSpacing: ".21em",
+                }}
+              >
+                MEMEDICTIONS
+              </div>
+
+              <h1
+                style={{
+                  margin: "8px 0 0",
+                  fontSize: "clamp(52px, 8vw, 88px)",
+                  lineHeight: .91,
+                  letterSpacing: "-.06em",
+                  fontWeight: 950,
+                }}
+              >
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #c9afff 0%, #9945ff 28%, #00c2ff 62%, #14f195 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     color: "transparent",
                   }}
                 >
                   Memedictions
-                </h1>
+                </span>
+              </h1>
 
-                <h2
-                  style={{
-                    margin: "18px 0 0",
-                    maxWidth: 720,
-                    fontSize: "clamp(22px, 4vw, 34px)",
-                    lineHeight: 1.16,
-                    letterSpacing: "-.025em",
-                    fontWeight: 850,
-                  }}
-                >
-                  From meme culture to verifiable prediction markets.
-                </h2>
+              <h2
+                style={{
+                  margin: "20px 0 0",
+                  maxWidth: 650,
+                  fontSize: "clamp(27px, 4vw, 43px)",
+                  lineHeight: 1.08,
+                  letterSpacing: "-.032em",
+                  fontWeight: 950,
+                  color: "#ffffff",
+                  textShadow: "0 4px 28px rgba(0,0,0,.45)",
+                }}
+              >
+                From meme culture to verifiable prediction markets.
+              </h2>
 
-                <p
-                  style={{
-                    ...mutedTextStyle,
-                    maxWidth: 720,
-                    margin: "14px 0 0",
-                    fontSize: 16,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Create short-duration markets, submit predictions and verify
-                  outcomes directly on Solana. Fast community conviction,
-                  transparent rounds and on-chain results.
-                </p>
+              <p
+                style={{
+                  margin: "18px 0 0",
+                  maxWidth: 620,
+                  color: "#d2c9db",
+                  fontSize: 16,
+                  lineHeight: 1.65,
+                  textShadow: "0 3px 16px rgba(0,0,0,.65)",
+                }}
+              >
+                Create short-duration markets, submit predictions and verify
+                outcomes directly on Solana. Fast community conviction,
+                transparent rounds and on-chain results.
+              </p>
 
-                <div
-                  style={{
-                    marginTop: 20,
-                    display: "flex",
-                    gap: 9,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {[
-                    ["PUBLIC TESTING", "#c9b8ff", "rgba(153,69,255,.11)", "rgba(153,69,255,.30)"],
-                    ["WALLET STANDARD", "#9deeff", "rgba(0,194,255,.08)", "rgba(0,194,255,.22)"],
-                    ["NO REAL FUNDS", "#ffb7c7", "rgba(255,130,159,.08)", "rgba(255,130,159,.22)"],
-                  ].map(([label, color, background, border]) => (
-                    <span
-                      key={label}
-                      style={{
-                        padding: "7px 11px",
-                        borderRadius: 999,
-                        background,
-                        border: `1px solid ${border}`,
-                        color,
-                        fontSize: 11,
-                        fontWeight: 900,
-                        letterSpacing: ".035em",
-                      }}
-                    >
-                      {label}
-                    </span>
-                  ))}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 22,
-                    display: "flex",
-                    gap: 10,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <a
-                    href="#wallet"
+              <div
+                style={{
+                  marginTop: 22,
+                  display: "flex",
+                  gap: 9,
+                  flexWrap: "wrap",
+                }}
+              >
+                {[
+                  [
+                    "PUBLIC TESTING",
+                    "#d0b5ff",
+                    "rgba(153,69,255,.11)",
+                    "rgba(153,69,255,.30)",
+                  ],
+                  [
+                    "WALLET STANDARD",
+                    "#76dcff",
+                    "rgba(0,194,255,.08)",
+                    "rgba(0,194,255,.26)",
+                  ],
+                  [
+                    "NO REAL FUNDS",
+                    "#ffadc4",
+                    "rgba(255,100,145,.08)",
+                    "rgba(255,100,145,.25)",
+                  ],
+                ].map(([label, color, background, border]) => (
+                  <span
+                    key={label}
                     style={{
-                      padding: "12px 18px",
-                      borderRadius: 12,
-                      background:
-                        "linear-gradient(135deg, #9945ff 0%, #14f195 100%)",
-                      color: "#08070c",
-                      textDecoration: "none",
+                      padding: "8px 12px",
+                      borderRadius: 999,
+                      border: `1px solid ${border}`,
+                      background,
+                      color,
+                      fontSize: 11,
                       fontWeight: 900,
-                      fontSize: 14,
-                      boxShadow: "0 12px 30px rgba(92,55,145,.30)",
                     }}
                   >
-                    Connect Wallet
-                  </a>
-
-                  <a
-                    href="https://faucet.solana.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: "12px 18px",
-                      borderRadius: 12,
-                      border: "1px solid rgba(255,255,255,.11)",
-                      background: "rgba(255,255,255,.045)",
-                      color: "#ffffff",
-                      textDecoration: "none",
-                      fontWeight: 800,
-                      fontSize: 14,
-                    }}
-                  >
-                    Get Devnet SOL
-                  </a>
-
-                  <a
-                    href="https://github.com/Jeet719/memedictions"
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: "12px 18px",
-                      borderRadius: 12,
-                      border: "1px solid rgba(255,255,255,.11)",
-                      background: "rgba(255,255,255,.025)",
-                      color: "#d8d1df",
-                      textDecoration: "none",
-                      fontWeight: 800,
-                      fontSize: 14,
-                    }}
-                  >
-                    View GitHub
-                  </a>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 16,
-                    color: "#807687",
-                    fontSize: 12,
-                  }}
-                >
-                  Transparent rounds. Verifiable outcomes.
-                </div>
+                    {label}
+                  </span>
+                ))}
               </div>
 
               <div
                 style={{
-                  minWidth: 180,
-                  padding: "14px 16px",
-                  borderRadius: 16,
-                  border: programDeployed
-                    ? "1px solid rgba(20,241,149,.24)"
-                    : "1px solid rgba(255,207,136,.25)",
-                  background: programDeployed
-                    ? "rgba(20,241,149,.055)"
-                    : "rgba(255,207,136,.055)",
+                  marginTop: 24,
+                  display: "flex",
+                  gap: 11,
+                  flexWrap: "wrap",
                 }}
               >
-                <div
+                <a
+                  href="#wallet"
                   style={{
-                    color: "#8f879a",
-                    fontSize: 10,
-                    fontWeight: 900,
-                    letterSpacing: ".12em",
+                    padding: "14px 21px",
+                    borderRadius: 14,
+                    background:
+                      "linear-gradient(90deg, #8f5cff 0%, #00c2ff 52%, #14f195 100%)",
+                    color: "#08070c",
+                    textDecoration: "none",
+                    fontSize: 14,
+                    fontWeight: 950,
+                    boxShadow: "0 16px 34px rgba(0,194,255,.20)",
                   }}
                 >
-                  CONTRACT STATUS
-                </div>
+                  Start testing →
+                </a>
 
-                <div
+                <a
+                  href="https://faucet.solana.com/"
+                  target="_blank"
+                  rel="noreferrer"
                   style={{
-                    marginTop: 6,
-                    color: programDeployed ? "#8fffc9" : "#ffcf88",
+                    padding: "14px 21px",
+                    borderRadius: 14,
+                    border: "1px solid rgba(0,194,255,.35)",
+                    background: "rgba(5,13,20,.68)",
+                    backdropFilter: "blur(8px)",
+                    color: "#ffffff",
+                    textDecoration: "none",
                     fontSize: 14,
                     fontWeight: 900,
                   }}
                 >
-                  {programDeployed ? "DEPLOYED" : "PENDING"}
-                </div>
+                  Get Devnet SOL ↗
+                </a>
 
+                <a
+                  href="https://github.com/Jeet719/memedictions"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    padding: "14px 21px",
+                    borderRadius: 14,
+                    border: "1px solid rgba(255,255,255,.13)",
+                    background: "rgba(7,7,14,.62)",
+                    backdropFilter: "blur(8px)",
+                    color: "#ffffff",
+                    textDecoration: "none",
+                    fontSize: 14,
+                    fontWeight: 900,
+                  }}
+                >
+                  View GitHub
+                </a>
+              </div>
 
+              <div
+                style={{
+                  marginTop: 18,
+                  color: "#aca2b7",
+                  fontSize: 12,
+                }}
+              >
+                Transparent rounds. Verifiable outcomes.
               </div>
             </div>
 
+            {/* CONTRACT STATUS FLOATING */}
             <div
               style={{
-                marginTop: 28,
-                padding: "13px 14px",
-                borderRadius: 15,
-                background: "rgba(7,7,11,.46)",
-                border: "1px solid rgba(255,255,255,.055)",
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit, minmax(125px, 1fr))",
-                gap: 8,
-              }}
-            >
-              {[
-                ["01", "CREATE"],
-                ["02", "PREDICT"],
-                ["03", "RESOLVE"],
-                ["04", "VERIFY"],
-              ].map(([number, label], index) => (
-                <div
-                  key={label}
-                  style={{
-                    position: "relative",
-                    padding: "9px 10px",
-                    textAlign: "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: index % 2 === 0 ? "#a98bff" : "#63e6a9",
-                      fontSize: 10,
-                      fontWeight: 900,
-                    }}
-                  >
-                    {number}
-                  </div>
-
-                  <div
-                    style={{
-                      marginTop: 3,
-                      fontSize: 12,
-                      fontWeight: 900,
-                      letterSpacing: ".09em",
-                    }}
-                  >
-                    {label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div
-              style={{
-                marginTop: 18,
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit, minmax(180px, 1fr))",
-                gap: 10,
-              }}
-            >
-              {[
-                ["NETWORK", "Solana Devnet"],
-                ["PROGRESS", `${completedSteps}/${totalSteps} stages`],
-                ["MARKET", market || "No market"],
-                [
-                  "WALLET BALANCE",
-                  balanceLoading
-                    ? "Loading..."
-                    : balance === null
-                    ? "Not available"
-                    : `${balance.toFixed(4)} SOL`,
-                ],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  style={{
-                    padding: 15,
-                    borderRadius: 15,
-                    background: "rgba(8,7,12,.44)",
-                    border: "1px solid rgba(255,255,255,.06)",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#817887",
-                      fontSize: 10,
-                      fontWeight: 900,
-                      letterSpacing: ".09em",
-                    }}
-                  >
-                    {label}
-                  </div>
-
-                  <div
-                    style={{
-                      marginTop: 5,
-                      fontSize: 14,
-                      fontWeight: 850,
-                    }}
-                  >
-                    {value}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div
-              style={{
-                marginTop: 18,
+                position: "absolute",
+                top: 28,
+                right: 28,
+                zIndex: 4,
+                padding: "15px 18px",
+                borderRadius: 18,
+                border: programDeployed
+                  ? "1px solid rgba(20,241,149,.36)"
+                  : "1px solid rgba(255,207,136,.34)",
+                background: "rgba(5,9,14,.76)",
+                backdropFilter: "blur(14px)",
+                boxShadow: "0 15px 40px rgba(0,0,0,.28)",
               }}
             >
               <div
                 style={{
+                  color: "#9b91a8",
+                  fontSize: 10,
+                  fontWeight: 900,
+                  letterSpacing: ".11em",
+                }}
+              >
+                CONTRACT STATUS
+              </div>
+
+              <div
+                style={{
+                  marginTop: 7,
                   display: "flex",
-                  justifyContent: "space-between",
-                  gap: 12,
-                  marginBottom: 7,
-                  color: "#83798e",
-                  fontSize: 11,
-                  fontWeight: 800,
+                  alignItems: "center",
+                  gap: 8,
+                  color: programDeployed ? "#14f195" : "#ffcf88",
+                  fontSize: 16,
+                  fontWeight: 950,
                 }}
               >
-                <span>TEST FLOW PROGRESS</span>
-                <span>{Math.round(progressPercent)}%</span>
-              </div>
-
-              <div
-                style={{
-                  height: 8,
-                  borderRadius: 999,
-                  overflow: "hidden",
-                  background: "#0a0910",
-                  border: "1px solid rgba(255,255,255,.05)",
-                }}
-              >
-                <div
+                <span
                   style={{
-                    width: `${progressPercent}%`,
-                    height: "100%",
-                    borderRadius: 999,
-                    background:
-                      "linear-gradient(90deg, #9945ff 0%, #00c2ff 48%, #14f195 100%)",
-                    transition: "width .3s ease",
-                    boxShadow: "0 0 20px rgba(20,241,149,.30)",
+                    width: 9,
+                    height: 9,
+                    borderRadius: "50%",
+                    background: programDeployed ? "#14f195" : "#ffcf88",
+                    boxShadow: programDeployed
+                      ? "0 0 14px rgba(20,241,149,.95)"
+                      : "0 0 14px rgba(255,207,136,.7)",
                   }}
                 />
+                {programDeployed ? "DEPLOYED" : "PENDING"}
               </div>
+
+              <div
+                style={{
+                  marginTop: 4,
+                  color: "#aaa0b4",
+                  fontSize: 11,
+                }}
+              >
+                Solana Devnet
+              </div>
+            </div>
+          </div>
+
+          {/* CORE FLOW */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 4,
+              margin: "0 26px 26px",
+              padding: "13px",
+              borderRadius: 18,
+              background: "rgba(5,8,13,.78)",
+              border: "1px solid rgba(255,255,255,.06)",
+              backdropFilter: "blur(10px)",
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(125px, 1fr))",
+              gap: 8,
+            }}
+          >
+            {[
+              ["01", "CREATE"],
+              ["02", "PREDICT"],
+              ["03", "RESOLVE"],
+              ["04", "VERIFY"],
+            ].map(([number, label], index) => (
+              <div
+                key={label}
+                style={{
+                  padding: "10px",
+                  textAlign: "center",
+                  borderRadius: 13,
+                  border: "1px solid rgba(255,255,255,.035)",
+                  background: "rgba(255,255,255,.015)",
+                }}
+              >
+                <div
+                  style={{
+                    color:
+                      index % 2 === 0
+                        ? "#a98bff"
+                        : "#63e6a9",
+                    fontSize: 10,
+                    fontWeight: 900,
+                  }}
+                >
+                  {number}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 4,
+                    fontSize: 12,
+                    fontWeight: 900,
+                    letterSpacing: ".08em",
+                  }}
+                >
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* STATS */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 4,
+              margin: "0 26px 18px",
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(180px, 1fr))",
+              gap: 10,
+            }}
+          >
+            {[
+              ["NETWORK", "Solana Devnet"],
+              ["PROGRESS", `${completedSteps}/${totalSteps} stages`],
+              ["MARKET", market || "No market"],
+              [
+                "WALLET BALANCE",
+                balanceLoading
+                  ? "Loading..."
+                  : balance === null
+                  ? "Not available"
+                  : `${balance.toFixed(4)} SOL`,
+              ],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                style={{
+                  padding: 14,
+                  borderRadius: 14,
+                  background: "rgba(7,8,13,.70)",
+                  border: "1px solid rgba(255,255,255,.055)",
+                }}
+              >
+                <div
+                  style={{
+                    color: "#817887",
+                    fontSize: 10,
+                    fontWeight: 900,
+                    letterSpacing: ".08em",
+                  }}
+                >
+                  {label}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 5,
+                    color: "#ffffff",
+                    fontSize: 13,
+                    fontWeight: 850,
+                  }}
+                >
+                  {value}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* PROGRESS BAR */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 4,
+              margin: "0 26px 26px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 12,
+                marginBottom: 7,
+                color: "#8b8294",
+                fontSize: 10,
+                fontWeight: 900,
+              }}
+            >
+              <span>TEST FLOW PROGRESS</span>
+              <span>{Math.round(progressPercent)}%</span>
+            </div>
+
+            <div
+              style={{
+                height: 8,
+                borderRadius: 999,
+                overflow: "hidden",
+                background: "#090811",
+                border: "1px solid rgba(255,255,255,.05)",
+              }}
+            >
+              <div
+                style={{
+                  width: `${progressPercent}%`,
+                  height: "100%",
+                  borderRadius: 999,
+                  background:
+                    "linear-gradient(90deg, #9945ff 0%, #00c2ff 48%, #14f195 100%)",
+                  transition: "width .3s ease",
+                  boxShadow: "0 0 18px rgba(20,241,149,.28)",
+                }}
+              />
             </div>
           </div>
         </header>
