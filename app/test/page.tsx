@@ -1067,7 +1067,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet) {
       setErrorMessage(
-        "Conecta una wallet compatible primero."
+        "Connect a compatible wallet first."
       );
       return;
     }
@@ -1349,7 +1349,7 @@ export default function DevnetPage() {
       );
 
       setMessage(
-        "Ronda preparada. Firma con Phantom para crearla en Devnet."
+        "Round prepared. Sign with your wallet to create it on Devnet."
       );
 
     } catch (error) {
@@ -1402,7 +1402,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet) {
       setErrorMessage(
-        "Conecta una wallet compatible primero."
+        "Connect a compatible wallet first."
       );
       return;
     }
@@ -1561,7 +1561,7 @@ export default function DevnetPage() {
       setPreparedRound(null);
 
       setMessage(
-        "Ronda de prueba creada correctamente en Solana Devnet."
+        "Test round created successfully on Solana Devnet."
       );
 
       await loadBalance(
@@ -1593,7 +1593,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet) {
       setErrorMessage(
-        "Conecta una wallet compatible primero."
+        "Connect a compatible wallet first."
       );
       return;
     }
@@ -1829,7 +1829,7 @@ export default function DevnetPage() {
       );
 
       setMessage(
-        "Predicción registrada correctamente en Solana Devnet."
+        "Prediction registered successfully on Solana Devnet."
       );
 
       await loadBalance(
@@ -1886,7 +1886,7 @@ export default function DevnetPage() {
 
     if (!connectedWallet) {
       setErrorMessage(
-        "Conecta una wallet compatible primero."
+        "Connect a compatible wallet first."
       );
       return;
     }
@@ -2137,7 +2137,7 @@ export default function DevnetPage() {
       );
 
       setMessage(
-        "Ronda resuelta correctamente en Solana Devnet."
+        "Round resolved successfully on Solana Devnet."
       );
 
       await loadBalance(
@@ -2387,479 +2387,714 @@ export default function DevnetPage() {
       >
         <header
           style={{
-            padding: "28px 28px 24px",
-            borderRadius: 24,
-            border: "1px solid rgba(169, 139, 255, 0.25)",
+            position: "relative",
+            overflow: "hidden",
+            padding: "34px 30px 26px",
+            borderRadius: 26,
+            border: "1px solid rgba(153, 69, 255, 0.28)",
             background:
-              "linear-gradient(135deg, rgba(38, 26, 58, 0.96), rgba(20, 16, 30, 0.96))",
-            boxShadow: "0 24px 70px rgba(0, 0, 0, 0.28)",
+              "linear-gradient(135deg, rgba(31,20,47,.98), rgba(15,13,23,.98) 55%, rgba(10,23,21,.96))",
+            boxShadow:
+              "0 28px 90px rgba(0,0,0,.34), 0 0 80px rgba(153,69,255,.06)",
           }}
         >
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 16,
-              alignItems: "flex-start",
-              flexWrap: "wrap",
+              position: "absolute",
+              width: 320,
+              height: 320,
+              borderRadius: "50%",
+              background: "rgba(153,69,255,.12)",
+              filter: "blur(90px)",
+              top: -170,
+              left: -90,
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              width: 280,
+              height: 280,
+              borderRadius: "50%",
+              background: "rgba(20,241,149,.08)",
+              filter: "blur(90px)",
+              right: -100,
+              bottom: -170,
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: 20,
+                flexWrap: "wrap",
+              }}
+            >
               <div
                 style={{
-                  color: "#a98bff",
-                  fontWeight: 900,
-                  fontSize: 12,
-                  letterSpacing: ".16em",
-                }}
-              >
-                MEMEDICTIONS · HACKATHON TESTNET
-              </div>
-
-              <h1
-                style={{
-                  margin: "10px 0 8px",
-                  fontSize: "clamp(32px, 6vw, 54px)",
-                  lineHeight: 1,
-                  letterSpacing: "-.03em",
-                }}
-              >
-                Predice. Firma. Verifica on-chain.
-              </h1>
-
-              <p
-                style={{
-                  ...mutedTextStyle,
                   maxWidth: 760,
-                  margin: 0,
-                  fontSize: 16,
-                  lineHeight: 1.6,
                 }}
               >
-                Entorno público de pruebas de Memedictions sobre Solana Devnet.
-                Crea una ronda, registra tu predicción y verifica el resultado
-                directamente on-chain.
-              </p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 9,
+                    color: "#14f195",
+                    fontWeight: 900,
+                    fontSize: 11,
+                    letterSpacing: ".15em",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      background: programDeployed ? "#14f195" : "#ffcf88",
+                      boxShadow: programDeployed
+                        ? "0 0 18px rgba(20,241,149,.95)"
+                        : "0 0 18px rgba(255,207,136,.75)",
+                    }}
+                  />
+
+                  {programDeployed
+                    ? "LIVE ON SOLANA DEVNET"
+                    : "SOLANA DEVNET · DEPLOYMENT PENDING"}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 18,
+                    fontSize: 13,
+                    fontWeight: 900,
+                    letterSpacing: ".18em",
+                    color: "#aaa1b5",
+                  }}
+                >
+                  MEMEDICTIONS
+                </div>
+
+                <h1
+                  style={{
+                    margin: "8px 0 0",
+                    fontSize: "clamp(42px, 8vw, 76px)",
+                    lineHeight: .95,
+                    letterSpacing: "-.055em",
+                    fontWeight: 950,
+                    background:
+                      "linear-gradient(90deg, #ffffff 0%, #c8b5ff 38%, #9945ff 62%, #14f195 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
+                  Memedictions
+                </h1>
+
+                <h2
+                  style={{
+                    margin: "18px 0 0",
+                    maxWidth: 720,
+                    fontSize: "clamp(22px, 4vw, 34px)",
+                    lineHeight: 1.16,
+                    letterSpacing: "-.025em",
+                    fontWeight: 850,
+                  }}
+                >
+                  From meme culture to verifiable prediction markets.
+                </h2>
+
+                <p
+                  style={{
+                    ...mutedTextStyle,
+                    maxWidth: 720,
+                    margin: "14px 0 0",
+                    fontSize: 16,
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Create short-duration markets, submit predictions and verify
+                  outcomes directly on Solana. Fast community conviction,
+                  transparent rounds and on-chain results.
+                </p>
+
+                <div
+                  style={{
+                    marginTop: 20,
+                    display: "flex",
+                    gap: 9,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {[
+                    ["PUBLIC TESTING", "#c9b8ff", "rgba(153,69,255,.11)", "rgba(153,69,255,.30)"],
+                    ["WALLET STANDARD", "#9deeff", "rgba(0,194,255,.08)", "rgba(0,194,255,.22)"],
+                    ["NO REAL FUNDS", "#ffb7c7", "rgba(255,130,159,.08)", "rgba(255,130,159,.22)"],
+                  ].map(([label, color, background, border]) => (
+                    <span
+                      key={label}
+                      style={{
+                        padding: "7px 11px",
+                        borderRadius: 999,
+                        background,
+                        border: `1px solid ${border}`,
+                        color,
+                        fontSize: 11,
+                        fontWeight: 900,
+                        letterSpacing: ".035em",
+                      }}
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 22,
+                    display: "flex",
+                    gap: 10,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <a
+                    href="#wallet"
+                    style={{
+                      padding: "12px 18px",
+                      borderRadius: 12,
+                      background:
+                        "linear-gradient(135deg, #9945ff 0%, #14f195 100%)",
+                      color: "#08070c",
+                      textDecoration: "none",
+                      fontWeight: 900,
+                      fontSize: 14,
+                      boxShadow: "0 12px 30px rgba(92,55,145,.30)",
+                    }}
+                  >
+                    Connect Wallet
+                  </a>
+
+                  <a
+                    href="https://faucet.solana.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      padding: "12px 18px",
+                      borderRadius: 12,
+                      border: "1px solid rgba(255,255,255,.11)",
+                      background: "rgba(255,255,255,.045)",
+                      color: "#ffffff",
+                      textDecoration: "none",
+                      fontWeight: 800,
+                      fontSize: 14,
+                    }}
+                  >
+                    Get Devnet SOL
+                  </a>
+
+                  <a
+                    href="https://github.com/Jeet719/memedictions"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      padding: "12px 18px",
+                      borderRadius: 12,
+                      border: "1px solid rgba(255,255,255,.11)",
+                      background: "rgba(255,255,255,.025)",
+                      color: "#d8d1df",
+                      textDecoration: "none",
+                      fontWeight: 800,
+                      fontSize: 14,
+                    }}
+                  >
+                    View GitHub
+                  </a>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 16,
+                    color: "#807687",
+                    fontSize: 12,
+                  }}
+                >
+                  Transparent rounds. Verifiable outcomes.
+                </div>
+              </div>
 
               <div
                 style={{
-                  marginTop: 14,
-                  display: "flex",
-                  gap: 10,
-                  flexWrap: "wrap",
+                  minWidth: 180,
+                  padding: "14px 16px",
+                  borderRadius: 16,
+                  border: programDeployed
+                    ? "1px solid rgba(20,241,149,.24)"
+                    : "1px solid rgba(255,207,136,.25)",
+                  background: programDeployed
+                    ? "rgba(20,241,149,.055)"
+                    : "rgba(255,207,136,.055)",
                 }}
               >
-                <span
+                <div
                   style={{
-                    padding: "7px 10px",
-                    borderRadius: 999,
-                    background: "rgba(169,139,255,.10)",
-                    border: "1px solid rgba(169,139,255,.28)",
-                    color: "#c8b9ff",
-                    fontSize: 12,
-                    fontWeight: 800,
+                    color: "#8f879a",
+                    fontSize: 10,
+                    fontWeight: 900,
+                    letterSpacing: ".12em",
                   }}
                 >
-                  SOLANA DEVNET
-                </span>
+                  CONTRACT STATUS
+                </div>
 
-                <span
+                <div
                   style={{
-                    padding: "7px 10px",
-                    borderRadius: 999,
-                    background: "rgba(99,230,169,.08)",
-                    border: "1px solid rgba(99,230,169,.22)",
-                    color: "#8fffc9",
-                    fontSize: 12,
-                    fontWeight: 800,
+                    marginTop: 6,
+                    color: programDeployed ? "#8fffc9" : "#ffcf88",
+                    fontSize: 14,
+                    fontWeight: 900,
                   }}
                 >
-                  PTS FICTICIOS
-                </span>
+                  {programDeployed ? "DEPLOYED" : "PENDING"}
+                </div>
 
-                <span
-                  style={{
-                    padding: "7px 10px",
-                    borderRadius: 999,
-                    background: "rgba(255,130,159,.08)",
-                    border: "1px solid rgba(255,130,159,.22)",
-                    color: "#ffabc0",
-                    fontSize: 12,
-                    fontWeight: 800,
-                  }}
-                >
-                  SIN FONDOS REALES
-                </span>
+
               </div>
             </div>
 
             <div
               style={{
-                padding: "10px 14px",
-                borderRadius: 999,
-                border: "1px solid #765425",
-                background: "#2c2115",
-                color: "#ffcf88",
-                fontSize: 13,
-                fontWeight: 800,
-                whiteSpace: "nowrap",
+                marginTop: 28,
+                padding: "13px 14px",
+                borderRadius: 15,
+                background: "rgba(7,7,11,.46)",
+                border: "1px solid rgba(255,255,255,.055)",
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(125px, 1fr))",
+                gap: 8,
               }}
             >
-              {programDeployed
-                  ? "DEVNET · Contrato desplegado"
-                  : "DEVNET · Contrato pendiente"}
-            </div>
-          </div>
+              {[
+                ["01", "CREATE"],
+                ["02", "PREDICT"],
+                ["03", "RESOLVE"],
+                ["04", "VERIFY"],
+              ].map(([number, label], index) => (
+                <div
+                  key={label}
+                  style={{
+                    position: "relative",
+                    padding: "9px 10px",
+                    textAlign: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: index % 2 === 0 ? "#a98bff" : "#63e6a9",
+                      fontSize: 10,
+                      fontWeight: 900,
+                    }}
+                  >
+                    {number}
+                  </div>
 
-          <div
-            style={{
-              marginTop: 24,
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: 12,
-            }}
-          >
-            <div
-              style={{
-                padding: 16,
-                borderRadius: 16,
-                background: "rgba(8, 7, 12, 0.42)",
-                border: "1px solid rgba(255,255,255,.06)",
-              }}
-            >
-              <div style={{ color: "#8f879a", fontSize: 12 }}>RED</div>
-              <strong>Solana Devnet</strong>
-            </div>
-
-            <div
-              style={{
-                padding: 16,
-                borderRadius: 16,
-                background: "rgba(8, 7, 12, 0.42)",
-                border: "1px solid rgba(255,255,255,.06)",
-              }}
-            >
-              <div style={{ color: "#8f879a", fontSize: 12 }}>PROGRESO</div>
-              <strong>{completedSteps}/{totalSteps} etapas completadas</strong>
-            </div>
-
-            <div
-              style={{
-                padding: 16,
-                borderRadius: 16,
-                background: "rgba(8, 7, 12, 0.42)",
-                border: "1px solid rgba(255,255,255,.06)",
-              }}
-            >
-              <div style={{ color: "#8f879a", fontSize: 12 }}>ACTIVO</div>
-              <strong>{market || "Sin mercado"}</strong>
+                  <div
+                    style={{
+                      marginTop: 3,
+                      fontSize: 12,
+                      fontWeight: 900,
+                      letterSpacing: ".09em",
+                    }}
+                  >
+                    {label}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div
               style={{
-                padding: 16,
-                borderRadius: 16,
-                background: "rgba(8, 7, 12, 0.42)",
-                border: "1px solid rgba(255,255,255,.06)",
+                marginTop: 18,
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(180px, 1fr))",
+                gap: 10,
               }}
             >
-              <div style={{ color: "#8f879a", fontSize: 12 }}>BALANCE WALLET · DEVNET</div>
-              <strong>
-                {balanceLoading
-                  ? "Consultando..."
-                  : balance === null
-                  ? "No disponible"
-                  : `${balance.toFixed(4)} SOL`}
-              </strong>
-            </div>
-          </div>
+              {[
+                ["NETWORK", "Solana Devnet"],
+                ["PROGRESS", `${completedSteps}/${totalSteps} stages`],
+                ["MARKET", market || "No market"],
+                [
+                  "WALLET BALANCE",
+                  balanceLoading
+                    ? "Loading..."
+                    : balance === null
+                    ? "Not available"
+                    : `${balance.toFixed(4)} SOL`,
+                ],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  style={{
+                    padding: 15,
+                    borderRadius: 15,
+                    background: "rgba(8,7,12,.44)",
+                    border: "1px solid rgba(255,255,255,.06)",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#817887",
+                      fontSize: 10,
+                      fontWeight: 900,
+                      letterSpacing: ".09em",
+                    }}
+                  >
+                    {label}
+                  </div>
 
-          <div
-            style={{
-              marginTop: 18,
-              height: 8,
-              borderRadius: 999,
-              overflow: "hidden",
-              background: "#0f0c16",
-              border: "1px solid rgba(255,255,255,.05)",
-            }}
-          >
+                  <div
+                    style={{
+                      marginTop: 5,
+                      fontSize: 14,
+                      fontWeight: 850,
+                    }}
+                  >
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <div
               style={{
-                width: `${progressPercent}%`,
-                height: "100%",
-                borderRadius: 999,
-                background: "linear-gradient(90deg, #7b61ff, #63e6a9)",
-                transition: "width .3s ease",
+                marginTop: 18,
               }}
-            />
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 12,
+                  marginBottom: 7,
+                  color: "#83798e",
+                  fontSize: 11,
+                  fontWeight: 800,
+                }}
+              >
+                <span>TEST FLOW PROGRESS</span>
+                <span>{Math.round(progressPercent)}%</span>
+              </div>
+
+              <div
+                style={{
+                  height: 8,
+                  borderRadius: 999,
+                  overflow: "hidden",
+                  background: "#0a0910",
+                  border: "1px solid rgba(255,255,255,.05)",
+                }}
+              >
+                <div
+                  style={{
+                    width: `${progressPercent}%`,
+                    height: "100%",
+                    borderRadius: 999,
+                    background:
+                      "linear-gradient(90deg, #9945ff 0%, #00c2ff 48%, #14f195 100%)",
+                    transition: "width .3s ease",
+                    boxShadow: "0 0 20px rgba(20,241,149,.30)",
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </header>
 
-        <section style={cardStyle}>
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            CÓMO PROBAR MEMEDICTIONS
-          </div>
-
-          <h2 style={{ margin: "6px 0 8px" }}>
-            Completa un mercado de principio a fin
-          </h2>
-
-          <p style={{ ...mutedTextStyle, marginTop: 0 }}>
-            Todo ocurre sobre Solana Devnet. Los PTS son ficticios y no se
-            utilizan fondos reales.
-          </p>
+        <section
+          style={{
+            ...cardStyle,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              width: 220,
+              height: 220,
+              borderRadius: "50%",
+              background: "rgba(153,69,255,.07)",
+              filter: "blur(75px)",
+              top: -130,
+              right: -80,
+              pointerEvents: "none",
+            }}
+          />
 
           <div
             style={{
-              marginTop: 18,
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: 12,
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            {[
-              ["01", "Conecta tu wallet", "Conecta una wallet compatible con Solana Devnet."],
-              ["02", "Crea una ronda", "Elige mercado, duración y precio inicial."],
-              ["03", "Predice", "Selecciona SUBE o BAJA y asigna PTS ficticios."],
-              ["04", "Espera el cierre", "La ronda permanece abierta hasta su tiempo de cierre."],
-              ["05", "Resuelve", "Registra el precio final y obtén SUBE, BAJA o VOID."],
-              ["06", "Verifica", "Comprueba el resultado registrado on-chain."],
-            ].map(([number, title, description]) => (
-              <div
-                key={number}
-                style={{
-                  padding: 16,
-                  borderRadius: 14,
-                  background: "rgba(8, 7, 12, 0.42)",
-                  border: "1px solid rgba(255,255,255,.06)",
-                }}
-              >
-                <div
-                  style={{
-                    color: "#a98bff",
-                    fontSize: 12,
-                    fontWeight: 900,
-                  }}
-                >
-                  {number}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 6,
-                    fontWeight: 800,
-                  }}
-                >
-                  {title}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 6,
-                    color: "#8f879a",
-                    fontSize: 13,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {description}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={cardStyle}>
-          <div
-            style={{
-              color: "#63e6a9",
-              fontWeight: 900,
-              fontSize: 12,
-              letterSpacing: ".08em",
-            }}
-          >
-            TESTING PÚBLICO · SOLANA DEVNET
-          </div>
-
-          <h2 style={{ marginTop: 8 }}>
-            Cómo probar Memedictions
-          </h2>
-
-          <p style={mutedTextStyle}>
-            Esta versión está disponible para testing público.
-            Todo funciona sobre Solana Devnet y no utiliza dinero real.
-          </p>
-
-          <div
-            style={{
-              marginTop: 14,
-              padding: "12px 14px",
-              borderRadius: 12,
-              background:
-                "rgba(123, 97, 255, 0.10)",
-              border:
-                "1px solid rgba(123, 97, 255, 0.28)",
-              color: "#ddd5ff",
-              lineHeight: 1.6,
-            }}
-          >
-            <strong>Recomendado:</strong>{" "}
-            usa Solflare y verifica que tu wallet esté conectada
-            a <strong>Solana Devnet</strong> antes de firmar.
-          </div>
-
-          <div
-            style={{
-              marginTop: 18,
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: 12,
-            }}
-          >
-            {[
-              [
-                "1",
-                "Conecta tu wallet",
-                "Usa una wallet compatible con Solana Wallet Standard.",
-              ],
-              [
-                "2",
-                "Ten SOL Devnet",
-                "Necesitas una pequeña cantidad de SOL de prueba para las comisiones de red.",
-              ],
-              [
-                "3",
-                "Crea una ronda",
-                "Selecciona mercado, duración y precio inicial.",
-              ],
-              [
-                "4",
-                "Haz tu predicción",
-                "Elige SUBE o BAJA y asigna PTS ficticios.",
-              ],
-              [
-                "5",
-                "Espera y resuelve",
-                "Al finalizar la ronda, introduce el precio final y resuelve on-chain.",
-              ],
-              [
-                "6",
-                "Verifica el resultado",
-                "La ronda, predicción y resolución pueden comprobarse en Solana Explorer.",
-              ],
-            ].map(([number, title, description]) => (
-              <div
-                key={number}
-                style={{
-                  padding: 16,
-                  borderRadius: 14,
-                  background:
-                    "rgba(12, 10, 17, 0.58)",
-                  border:
-                    "1px solid rgba(255,255,255,.07)",
-                }}
-              >
-                <div
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 999,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "#7b61ff",
-                    color: "#ffffff",
-                    fontWeight: 900,
-                    fontSize: 13,
-                  }}
-                >
-                  {number}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 10,
-                    fontWeight: 800,
-                  }}
-                >
-                  {title}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 6,
-                    color: "#8f879a",
-                    fontSize: 13,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {description}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div
-            style={{
-              marginTop: 16,
-              display: "flex",
-              gap: 12,
-              flexWrap: "wrap",
-            }}
-          >
-            <a
-              href="https://faucet.solana.com/"
-              target="_blank"
-              rel="noreferrer"
+            <div
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "11px 16px",
-                borderRadius: 12,
-                border: "1px solid #7b61ff",
-                background: "#7b61ff",
-                color: "#ffffff",
-                fontWeight: 800,
-                textDecoration: "none",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: 18,
+                flexWrap: "wrap",
               }}
             >
-              Conseguir SOL Devnet ↗
-            </a>
-          </div>
+              <div>
+                <div
+                  style={{
+                    color: "#14f195",
+                    fontWeight: 900,
+                    fontSize: 11,
+                    letterSpacing: ".12em",
+                  }}
+                >
+                  PUBLIC TEST
+                </div>
 
-          <div
-            style={{
-              marginTop: 18,
-              padding: 14,
-              borderRadius: 12,
-              background:
-                "rgba(99, 230, 169, 0.08)",
-              border:
-                "1px solid rgba(99, 230, 169, 0.22)",
-              color: "#d9fff0",
-              lineHeight: 1.6,
-            }}
-          >
-            <strong>Importante:</strong>{" "}
-            los PTS utilizados en Memedictions son ficticios.
-            Esta demo no mueve tokens ni dinero real.
-            SOL Devnet se utiliza únicamente para pagar
-            las comisiones de las transacciones de prueba.
-          </div>
+                <h2
+                  style={{
+                    margin: "7px 0 0",
+                    fontSize: "clamp(24px, 4vw, 32px)",
+                    letterSpacing: "-.02em",
+                  }}
+                >
+                  Test Memedictions end-to-end
+                </h2>
 
-          <p
-            style={{
-              ...mutedTextStyle,
-              marginTop: 14,
-              marginBottom: 0,
-            }}
-          >
-            Esta versión sigue en desarrollo.
-            Si encuentras algún problema durante las pruebas,
-            tu feedback es bienvenido.
-          </p>
+                <p
+                  style={{
+                    ...mutedTextStyle,
+                    margin: "9px 0 0",
+                    maxWidth: 680,
+                  }}
+                >
+                  Complete the full prediction lifecycle.
+                  Create a market, submit your prediction, resolve the round
+                  and verify the result on-chain.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 999,
+                  background: "rgba(20,241,149,.07)",
+                  border: "1px solid rgba(20,241,149,.22)",
+                  color: "#8fffc9",
+                  fontSize: 11,
+                  fontWeight: 900,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                NO REAL FUNDS
+              </div>
+            </div>
+
+            <div
+              style={{
+                marginTop: 20,
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(145px, 1fr))",
+                gap: 10,
+              }}
+            >
+              {[
+                ["01", "CONNECT", "Connect a Wallet Standard-compatible wallet."],
+                ["02", "CREATE", "Choose a market, duration and opening price."],
+                ["03", "PREDICT", "Select UP or DOWN using fictitious PTS."],
+                ["04", "WAIT", "Let the round reach its closing time."],
+                ["05", "RESOLVE", "Enter the closing price and resolve on-chain."],
+                ["06", "VERIFY", "Check the final result on Solana Explorer."],
+              ].map(([number, title, description]) => (
+                <div
+                  key={number}
+                  style={{
+                    padding: 15,
+                    borderRadius: 14,
+                    background: "rgba(8,7,12,.44)",
+                    border: "1px solid rgba(255,255,255,.06)",
+                  }}
+                >
+                  <div
+                    style={{
+                      color:
+                        Number(number) % 2 === 0
+                          ? "#63e6a9"
+                          : "#a98bff",
+                      fontSize: 10,
+                      fontWeight: 900,
+                      letterSpacing: ".08em",
+                    }}
+                  >
+                    {number}
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: 6,
+                      fontWeight: 900,
+                      fontSize: 13,
+                      letterSpacing: ".04em",
+                    }}
+                  >
+                    {title}
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: 6,
+                      color: "#8f879a",
+                      fontSize: 12,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {description}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                marginTop: 18,
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(260px, 1fr))",
+                gap: 12,
+              }}
+            >
+              <div
+                style={{
+                  padding: "14px 16px",
+                  borderRadius: 14,
+                  background: "rgba(153,69,255,.075)",
+                  border: "1px solid rgba(153,69,255,.22)",
+                }}
+              >
+                <div
+                  style={{
+                    color: "#cbb9ff",
+                    fontWeight: 900,
+                    fontSize: 12,
+                  }}
+                >
+                  RECOMMENDED SETUP
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 7,
+                    color: "#aaa1b5",
+                    fontSize: 13,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Use <strong style={{ color: "#ffffff" }}>Solflare</strong>{" "}
+                  and make sure your wallet is connected to{" "}
+                  <strong style={{ color: "#ffffff" }}>
+                    Solana Devnet
+                  </strong>.
+                </div>
+              </div>
+
+              <div
+                style={{
+                  padding: "14px 16px",
+                  borderRadius: 14,
+                  background: "rgba(20,241,149,.055)",
+                  border: "1px solid rgba(20,241,149,.18)",
+                }}
+              >
+                <div
+                  style={{
+                    color: "#8fffc9",
+                    fontWeight: 900,
+                    fontSize: 12,
+                  }}
+                >
+                  TEST FUNDS ONLY
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 7,
+                    color: "#aaa1b5",
+                    fontSize: 13,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  PTS are fictitious. Devnet SOL is used only for
+                  transaction fees. This demo does not move real tokens
+                  or real money.
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                marginTop: 16,
+                display: "flex",
+                gap: 10,
+                flexWrap: "wrap",
+              }}
+            >
+              <a
+                href="#wallet"
+                style={{
+                  padding: "11px 16px",
+                  borderRadius: 11,
+                  background:
+                    "linear-gradient(135deg, #9945ff, #14f195)",
+                  color: "#08070c",
+                  fontWeight: 900,
+                  fontSize: 13,
+                  textDecoration: "none",
+                }}
+              >
+                Start testing
+              </a>
+
+              <a
+                href="https://faucet.solana.com/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  padding: "11px 16px",
+                  borderRadius: 11,
+                  border: "1px solid rgba(255,255,255,.11)",
+                  background: "rgba(255,255,255,.035)",
+                  color: "#ffffff",
+                  fontWeight: 800,
+                  fontSize: 13,
+                  textDecoration: "none",
+                }}
+              >
+                Get Devnet SOL ↗
+              </a>
+            </div>
+          </div>
         </section>
 
         <section style={cardStyle}>
@@ -2876,7 +3111,7 @@ export default function DevnetPage() {
               <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
                 ESTADO GENERAL
               </div>
-              <h2 style={{ margin: "6px 0 0" }}>Checklist Devnet</h2>
+              <h2 style={{ margin: "6px 0 0" }}>Live Test Checklist</h2>
             </div>
 
             <span
@@ -2907,9 +3142,9 @@ export default function DevnetPage() {
             {[
               [walletReady, "Wallet conectada"],
               [hasBalance, "SOL Devnet disponible"],
-              [roundReady, "Ronda Devnet creada"],
-              [predictionReady, "Predicción registrada"],
-              [resultReady, "Ronda resuelta"],
+              [roundReady, "Devnet round created"],
+              [predictionReady, "Prediction registered"],
+              [resultReady, "Round resolved"],
               [programDeployed, "Contrato Memedictions desplegado"],
             ].map(([ready, label]) => (
               <div
@@ -2937,13 +3172,43 @@ export default function DevnetPage() {
           </div>
         </section>
 
-        <section style={cardStyle}>
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            PASO 1
+        <section id="wallet" style={cardStyle}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ color: "#a98bff", fontWeight: 900, fontSize: 12 }}>
+              STEP 01
+            </div>
+
+            <span
+              style={{
+                padding: "7px 10px",
+                borderRadius: 999,
+                background: walletReady
+                  ? "rgba(20,241,149,.08)"
+                  : "rgba(255,255,255,.04)",
+                border: walletReady
+                  ? "1px solid rgba(20,241,149,.22)"
+                  : "1px solid rgba(255,255,255,.08)",
+                color: walletReady ? "#8fffc9" : "#938a9e",
+                fontSize: 11,
+                fontWeight: 900,
+              }}
+            >
+              {walletReady ? "READY" : "PENDING"}
+            </span>
           </div>
-          <h2 style={{ marginTop: 6 }}>Wallet</h2>
-          <p style={mutedTextStyle}>
-            Tu wallet firma cada transacción directamente en Solana Devnet.
+
+          <h2 style={{ margin: "7px 0 0" }}>Connect your wallet</h2>
+
+          <p style={{ ...mutedTextStyle, marginTop: 8 }}>
+            Connect a Wallet Standard-compatible wallet and sign transactions securely.
           </p>
 
           {walletAddress && (
@@ -2963,9 +3228,9 @@ export default function DevnetPage() {
               >
                 <strong>
                   {balanceLoading
-                    ? "Consultando balance..."
+                    ? "Loading balance..."
                     : balance === null
-                    ? "Balance no disponible"
+                    ? "Balance unavailable"
                     : `${balance.toFixed(6)} SOL Devnet`}
                 </strong>
 
@@ -2999,39 +3264,47 @@ export default function DevnetPage() {
                 "1px solid rgba(255,255,255,.08)",
             }}
           >
-            <div
-              style={{
-                color: "#63e6a9",
-                fontWeight: 900,
-                fontSize: 12,
-                letterSpacing: ".08em",
-              }}
-            >
-              WALLET SOLANA
-            </div>
-
-            <p
-              style={{
-                ...mutedTextStyle,
-                marginTop: 8,
-              }}
-            >
-              Conecta una wallet compatible con Wallet Standard
-              para firmar directamente en Solana Devnet.
-            </p>
-
             <WalletStandardPanel />
           </div>
         </section>
 
         <section style={cardStyle}>
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            PASO 2
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ color: "#a98bff", fontWeight: 900, fontSize: 12 }}>
+              STEP 02
+            </div>
+
+            <span
+              style={{
+                padding: "7px 10px",
+                borderRadius: 999,
+                background: roundReady
+                  ? "rgba(20,241,149,.08)"
+                  : "rgba(255,255,255,.04)",
+                border: roundReady
+                  ? "1px solid rgba(20,241,149,.22)"
+                  : "1px solid rgba(255,255,255,.08)",
+                color: roundReady ? "#8fffc9" : "#938a9e",
+                fontSize: 11,
+                fontWeight: 900,
+              }}
+            >
+              {roundReady ? "READY" : "PENDING"}
+            </span>
           </div>
-          <h2 style={{ marginTop: 6 }}>Crear ronda de prueba</h2>
-          <p style={mutedTextStyle}>
-            Define el mercado, la duración y el precio inicial. La ronda V2
-            será firmada desde tu wallet y registrada on-chain en Solana Devnet.
+
+          <h2 style={{ margin: "7px 0 0" }}>Create a market</h2>
+
+          <p style={{ ...mutedTextStyle, marginTop: 8 }}>
+            Define the market, duration and opening price before registering the round on-chain.
           </p>
 
           <div
@@ -3043,7 +3316,7 @@ export default function DevnetPage() {
             }}
           >
             <label>
-              <span style={{ fontWeight: 700 }}>Mercado</span>
+              <span style={{ fontWeight: 700 }}>Market</span>
               <input
                 value={market}
                 onChange={(event) => setMarket(event.target.value.toUpperCase())}
@@ -3053,7 +3326,7 @@ export default function DevnetPage() {
             </label>
 
             <label>
-              <span style={{ fontWeight: 700 }}>Duración</span>
+              <span style={{ fontWeight: 700 }}>Duration</span>
               <select
                 value={durationSeconds}
                 onChange={(event) => setDurationSeconds(Number(event.target.value))}
@@ -3067,7 +3340,7 @@ export default function DevnetPage() {
             </label>
 
             <label>
-              <span style={{ fontWeight: 700 }}>Precio inicial</span>
+              <span style={{ fontWeight: 700 }}>Opening price</span>
               <input
                 type="number"
                 min={1}
@@ -3113,10 +3386,10 @@ export default function DevnetPage() {
               : roundSending
               ? "Firmando y enviando..."
               : roundReady
-              ? "✓ Ronda creada"
+              ? "✓ Round created"
               : preparedRound
               ? "Firmar con wallet"
-              : "Preparar ronda"}
+              : "Create round"}
           </button>
 
           {roundAddress && (
@@ -3170,13 +3443,41 @@ export default function DevnetPage() {
         </section>
 
         <section style={cardStyle}>
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            PASO 3
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ color: "#a98bff", fontWeight: 900, fontSize: 12 }}>
+              STEP 03
+            </div>
+
+            <span
+              style={{
+                padding: "7px 10px",
+                borderRadius: 999,
+                background: predictionReady
+                  ? "rgba(20,241,149,.08)"
+                  : "rgba(255,255,255,.04)",
+                border: predictionReady
+                  ? "1px solid rgba(20,241,149,.22)"
+                  : "1px solid rgba(255,255,255,.08)",
+                color: predictionReady ? "#8fffc9" : "#938a9e",
+                fontSize: 11,
+                fontWeight: 900,
+              }}
+            >
+              {predictionReady ? "READY" : "PENDING"}
+            </span>
           </div>
-          <h2 style={{ marginTop: 6 }}>Predicción</h2>
+
+          <h2 style={{ margin: "7px 0 0" }}>Submit your prediction</h2>
           <p style={mutedTextStyle}>
-            Elige una dirección y asigna PTS ficticios. No se transfieren tokens
-            ni dinero real.
+            Choose UP or DOWN and assign fictitious PTS. No real tokens or money are transferred.
           </p>
 
           {!roundReady && (
@@ -3244,7 +3545,7 @@ export default function DevnetPage() {
           </div>
 
           <label style={{ display: "block", marginTop: 18 }}>
-            <span style={{ fontWeight: 700 }}>Puntos ficticios</span>
+            <span style={{ fontWeight: 700 }}>Fictitious PTS</span>
             <input
               type="number"
               min={1}
@@ -3290,8 +3591,8 @@ export default function DevnetPage() {
               : predictionSending
               ? "Firmando y enviando..."
               : predictionReady
-              ? "✓ Predicción registrada"
-              : "Registrar predicción"}
+              ? "✓ Prediction registered"
+              : "Submit prediction"}
           </button>
 
           {predictionAddress && (
@@ -3335,7 +3636,7 @@ export default function DevnetPage() {
           {predictionSignature && (
             <div style={{ marginTop: 16 }}>
               <p style={{ ...mutedTextStyle, margin: 0 }}>
-                ✓ Predicción registrada en Solana Devnet.
+                ✓ Prediction registered on Solana Devnet.
               </p>
               <a
                 href={explorerTransactionUrl(predictionSignature)}
@@ -3356,12 +3657,49 @@ export default function DevnetPage() {
         </section>
 
         <section style={cardStyle}>
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            PASO 4
-          </div>
-          <h2 style={{ marginTop: 6 }}>Esperar / Resolver</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ color: "#a98bff", fontWeight: 900, fontSize: 12 }}>
+              STEP 04
+            </div>
 
-          {!roundReady && <p style={mutedTextStyle}>Todavía no existe una ronda de prueba.</p>}
+            <span
+              style={{
+                padding: "7px 10px",
+                borderRadius: 999,
+                background: resultReady
+                  ? "rgba(20,241,149,.08)"
+                  : roundReady
+                  ? "rgba(153,69,255,.10)"
+                  : "rgba(255,255,255,.04)",
+                border: resultReady
+                  ? "1px solid rgba(20,241,149,.22)"
+                  : roundReady
+                  ? "1px solid rgba(153,69,255,.24)"
+                  : "1px solid rgba(255,255,255,.08)",
+                color: resultReady
+                  ? "#8fffc9"
+                  : roundReady
+                  ? "#cbb9ff"
+                  : "#938a9e",
+                fontSize: 11,
+                fontWeight: 900,
+              }}
+            >
+              {resultReady ? "READY" : roundReady ? "ACTIVE" : "PENDING"}
+            </span>
+          </div>
+
+          <h2 style={{ margin: "7px 0 0" }}>Wait & resolve</h2>
+
+          {!roundReady && <p style={mutedTextStyle}>No test round exists yet.</p>}
 
           {roundReady && !roundExpired && (
             <div
@@ -3373,7 +3711,7 @@ export default function DevnetPage() {
                 border: "1px solid #29463b",
               }}
             >
-              <strong style={{ color: "#8fffc9" }}>Ronda abierta</strong>
+              <strong style={{ color: "#8fffc9" }}>Round open</strong>
 
               {remainingSeconds !== null && (
                 <p style={{ marginBottom: 8 }}>
@@ -3468,7 +3806,7 @@ export default function DevnetPage() {
                   ? "Preparando resolución..."
                   : closeSending
                   ? "Firmando y enviando..."
-                  : "Resolver automáticamente en Devnet"}
+                  : "Resolve automatically"}
               </button>
             </>
           )}
@@ -3485,7 +3823,7 @@ export default function DevnetPage() {
                 fontWeight: 800,
               }}
             >
-              ✓ Ronda resuelta on-chain.
+              ✓ Round resolved on-chain.
             </div>
           )}
         </section>
@@ -3509,14 +3847,43 @@ export default function DevnetPage() {
               : cardStyle.background,
           }}
         >
-          <div style={{ color: "#a98bff", fontWeight: 800, fontSize: 12 }}>
-            PASO 5
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ color: "#a98bff", fontWeight: 900, fontSize: 12 }}>
+              STEP 05
+            </div>
+
+            <span
+              style={{
+                padding: "7px 10px",
+                borderRadius: 999,
+                background: resultReady
+                  ? "rgba(20,241,149,.08)"
+                  : "rgba(255,255,255,.04)",
+                border: resultReady
+                  ? "1px solid rgba(20,241,149,.22)"
+                  : "1px solid rgba(255,255,255,.08)",
+                color: resultReady ? "#8fffc9" : "#938a9e",
+                fontSize: 11,
+                fontWeight: 900,
+              }}
+            >
+              {resultReady ? "VERIFIED" : "PENDING"}
+            </span>
           </div>
-          <h2 style={{ marginTop: 6 }}>Resultado</h2>
+
+          <h2 style={{ margin: "7px 0 0" }}>Result & verify</h2>
 
           {!resultReady ? (
             <p style={mutedTextStyle}>
-              El resultado aparecerá aquí cuando la ronda de prueba quede resuelta en Devnet.
+              The result will appear here once the round has been resolved on-chain.
             </p>
           ) : (
             <>
@@ -3539,7 +3906,7 @@ export default function DevnetPage() {
                       : "✕ PERDISTE"}
                 </h3>
               ) : (
-                <h3>Ronda finalizada</h3>
+                <h3>Round completed</h3>
               )}
 
               <div
