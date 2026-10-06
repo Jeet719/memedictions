@@ -3905,7 +3905,7 @@ export default function DevnetPage() {
 
               {remainingSeconds !== null && (
                 <p style={{ marginBottom: 8 }}>
-                  Tiempo restante aproximado:{" "}
+                  Approximate time remaining:{" "}
                   <strong style={{ color: "#63e6a9", fontSize: 20 }}>
                     {formatRemainingTime(remainingSeconds)}
                   </strong>
