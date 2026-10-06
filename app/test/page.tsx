@@ -2449,36 +2449,6 @@ export default function DevnetPage() {
               </div>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                gap: 8,
-                flexWrap: "wrap",
-              }}
-            >
-              {["Demo", "How it works", "GitHub"].map((label, index) => (
-                <span
-                  key={label}
-                  style={{
-                    padding: "9px 13px",
-                    borderRadius: 999,
-                    border:
-                      index === 0
-                        ? "1px solid rgba(153,69,255,.38)"
-                        : "1px solid rgba(255,255,255,.07)",
-                    background:
-                      index === 0
-                        ? "rgba(153,69,255,.12)"
-                        : "rgba(255,255,255,.025)",
-                    color: "#ddd5e7",
-                    fontSize: 12,
-                    fontWeight: 800,
-                  }}
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
 
             <div
               style={{
