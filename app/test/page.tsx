@@ -3384,11 +3384,11 @@ export default function DevnetPage() {
             {roundPreparing
               ? "Preparing round..."
               : roundSending
-              ? "Firmando y enviando..."
+              ? "Signing and sending..."
               : roundReady
               ? "✓ Round created"
               : preparedRound
-              ? "Firmar con wallet"
+              ? "Sign with wallet"
               : "Create round"}
           </button>
 
@@ -3408,7 +3408,7 @@ export default function DevnetPage() {
                   fontWeight: 700,
                 }}
               >
-                Ver Round PDA en Solana Explorer ↗
+                View Round PDA on Solana Explorer ↗
               </a>
 
               {roundId && (
@@ -3422,7 +3422,7 @@ export default function DevnetPage() {
           {roundSignature && (
             <div style={{ marginTop: 16 }}>
               <p style={{ ...mutedTextStyle, margin: 0 }}>
-                ✓ Creación registrada en Solana Devnet.
+                ✓ Creation confirmed on Solana Devnet.
               </p>
               <a
                 href={explorerTransactionUrl(roundSignature)}
@@ -3436,7 +3436,7 @@ export default function DevnetPage() {
                   fontWeight: 700,
                 }}
               >
-                Ver creación en Solana Explorer ↗
+                View creation on Solana Explorer ↗
               </a>
             </div>
           )}
@@ -3589,7 +3589,7 @@ export default function DevnetPage() {
             {predictionPreparing
               ? "Preparing prediction..."
               : predictionSending
-              ? "Firmando y enviando..."
+              ? "Signing and sending..."
               : predictionReady
               ? "✓ Prediction registered"
               : "Submit prediction"}
@@ -3611,7 +3611,7 @@ export default function DevnetPage() {
                   fontWeight: 700,
                 }}
               >
-                Ver Prediction PDA en Solana Explorer ↗
+                View Prediction PDA on Solana Explorer ↗
               </a>
 
               <div
@@ -3624,10 +3624,12 @@ export default function DevnetPage() {
                 }}
               >
                 <span>
-                  Dirección: <strong style={{ color: "#ffffff" }}>{direction}</strong>
+                  Direction: <strong style={{ color: "#ffffff" }}>
+                    {direction === "SUBE" ? "UP" : direction === "BAJA" ? "DOWN" : direction}
+                  </strong>
                 </span>
                 <span>
-                  Stake demo: <strong style={{ color: "#ffffff" }}>{points} PTS</strong>
+                  Demo stake: <strong style={{ color: "#ffffff" }}>{points} PTS</strong>
                 </span>
               </div>
             </div>
@@ -3805,7 +3807,7 @@ export default function DevnetPage() {
                 {closePreparing
                   ? "Preparing resolution..."
                   : closeSending
-                  ? "Firmando y enviando..."
+                  ? "Signing and sending..."
                   : "Resolve automatically"}
               </button>
             </>
@@ -3902,8 +3904,8 @@ export default function DevnetPage() {
                   {resultVoid
                     ? "— VOID —"
                     : userWon
-                      ? "✓ GANASTE"
-                      : "✕ PERDISTE"}
+                      ? "✓ YOU WON"
+                      : "✕ YOU LOST"}
                 </h3>
               ) : (
                 <h3>Round completed</h3>
@@ -4003,7 +4005,7 @@ export default function DevnetPage() {
                       fontWeight: 700,
                     }}
                   >
-                    Ver RoundResult en Solana Explorer ↗
+                    View RoundResult on Solana Explorer ↗
                   </a>
                 </div>
               )}
@@ -4094,7 +4096,7 @@ export default function DevnetPage() {
             }}
           >
             Your wallet does not have Devnet SOL available. You need a small
-            cantidad de SOL de prueba para firmar transacciones en esta demo.
+            amount of Devnet SOL to sign transactions in this demo.
             El SOL Devnet no tiene valor real.
           </div>
         )}

@@ -289,8 +289,8 @@ export default function WalletStandardPanel() {
           marginBottom: 0,
         }}
       >
-        Usa una wallet compatible con Solana Wallet Standard para firmar
-        transacciones directamente en Devnet.
+        Use a Solana Wallet Standard-compatible wallet to sign
+        transactions directly on Devnet.
       </p>
 
       <div
