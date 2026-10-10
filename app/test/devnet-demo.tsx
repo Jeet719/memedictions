@@ -1889,7 +1889,7 @@ export default function DevnetDemo({ oracle = false }: { oracle?: boolean }) {
 
       const sendResponse =
         await fetch(
-          "/api/test/prediction/send",
+          oracle ? "/api/pyth/send" : "/api/test/prediction/send",
           {
             method: "POST",
 
@@ -4123,14 +4123,14 @@ export default function DevnetDemo({ oracle = false }: { oracle?: boolean }) {
           style={{
             ...cardStyle,
             border: resultReady
-              ? resultVoid
+              ? resultVoid || !predictionReady
                 ? "1px solid #6b6380"
                 : userWon
                   ? "1px solid #376e59"
                   : "1px solid #82465a"
               : cardStyle.border,
             background: resultReady
-              ? resultVoid
+              ? resultVoid || !predictionReady
                 ? "linear-gradient(180deg, #201d29, #15131c)"
                 : userWon
                   ? "linear-gradient(180deg, #14251f, #101b17)"
@@ -4197,7 +4197,13 @@ export default function DevnetDemo({ oracle = false }: { oracle?: boolean }) {
                       : "✕ INCORRECT PREDICTION"}
                 </h3>
               ) : (
-                <h3>Round completed</h3>
+                <>
+                  <h3>Round completed</h3>
+                  <p style={mutedTextStyle}>
+                    No prediction was registered for this wallet in this round.
+                    The official market result is shown below.
+                  </p>
+                </>
               )}
 
               {resultVoid && (
