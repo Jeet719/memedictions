@@ -332,7 +332,7 @@ export default function LandingPage() {
 
         <section style={styles.hero}>
           <div style={styles.eyebrow}>
-             BUILT ON SOLANA </div>
+             LIVE ON SOLANA DEVNET · POWERED BY PYTH </div>
 
           <h1 style={styles.heroTitle}>
              Predict memecoins. <br />
@@ -352,7 +352,7 @@ export default function LandingPage() {
               href="/pyth"
               style={styles.button}
             >
-               Try the MVP </Link>
+               Try the Pyth demo </Link>
 
             <a
               href="#mvp"
@@ -373,29 +373,34 @@ export default function LandingPage() {
              HOW IT WORKS </div>
 
           <h2 style={styles.sectionTitle}>
-             One prediction. Four steps. </h2>
+             One prediction. Five steps. </h2>
 
-          <div style={styles.grid4}>
+          <div style={{ ...styles.grid4, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             {[
               [
                 "01",
-                "Choose",
-                "Select a memecoin and a round.",
+                "Connect",
+                "Connect your wallet on Solana Devnet and check your test SOL balance.",
               ],
               [
                 "02",
-                "Predict",
-                "Choose UP or DOWN and submit test points.",
+                "Create",
+                "View the DOGE/USD chart and create a timed round with a Pyth-verified opening price.",
               ],
               [
                 "03",
-                "Wait",
-                "The round remains open until its scheduled closing time.",
+                "Predict",
+                "Choose UP or DOWN, assign fictitious PTS, and sign your prediction before the round closes.",
               ],
               [
                 "04",
-                "Resolve",
-                "The round authority signs resolution using a Pyth-verified closing quote.",
+                "Wait & resolve",
+                "After the timer expires, the round creator signs resolution with a Pyth-verified closing quote.",
+              ],
+              [
+                "05",
+                "Result & verify",
+                "See UP, DOWN, or VOID and inspect the recorded accounts and transactions on Solana Explorer.",
               ],
             ].map(
               ([number, title, text]) => (
@@ -454,14 +459,14 @@ export default function LandingPage() {
                   styles.sectionText
                 }
               >
-                 The original Localnet validation covered round creation, predictions,
-                closing, results and proportional test-point calculations.
-                The current public MVP records predictions and results on Devnet. </p>
+                 The public Pyth demo has completed creation, prediction, and resolution
+                on Solana Devnet. DOGE/USD prices are verified on-chain, and the
+                result can be inspected on Solana Explorer. </p>
             </div>
 
             <div style={styles.card}>
               <div style={styles.eyebrow}>
-                 LOCALNET TEST EXAMPLE </div>
+                 PUBLIC DEVNET ROUND · OCT 9, 2026 </div>
 
               <h2
                 style={{
@@ -469,7 +474,7 @@ export default function LandingPage() {
                   margin: "12px 0",
                 }}
               >
-                BONK
+                DOGE/USD
               </h2>
 
               <div style={styles.stats}>
@@ -479,14 +484,14 @@ export default function LandingPage() {
                       styles.metricValue
                     }
                   >
-                    325 PTS
+                    $0.08622881
                   </div>
                   <div
                     style={
                       styles.metricLabel
                     }
                   >
-                     Total test-point pool </div>
+                     Opening price · Pyth </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -495,14 +500,14 @@ export default function LandingPage() {
                       styles.metricValue
                     }
                   >
-                    175 PTS
+                    $0.08616386
                   </div>
                   <div
                     style={
                       styles.metricLabel
                     }
                   >
-                     Winning side </div>
+                     Closing price · Pyth </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -511,14 +516,14 @@ export default function LandingPage() {
                       styles.metricValue
                     }
                   >
-                    150 PTS
+                    DOWN
                   </div>
                   <div
                     style={
                       styles.metricLabel
                     }
                   >
-                     Losing side </div>
+                     Prediction · correct </div>
                 </div>
 
                 <div style={styles.metric}>
@@ -527,26 +532,26 @@ export default function LandingPage() {
                       styles.metricValue
                     }
                   >
-                    325 PTS
+                    100 PTS
                   </div>
                   <div
                     style={
                       styles.metricLabel
                     }
                   >
-                     Allocated test points </div>
+                     Fictitious points </div>
                 </div>
               </div>
 
               <div style={styles.pills}>
                 <span style={styles.pill}>
-                   3 test predictions </span>
+                   Correct prediction </span>
 
                 <span style={styles.pill}>
-                   on-chain flow </span>
+                   Pyth verified </span>
 
                 <span style={styles.pill}>
-                  Localnet
+                  Solana Devnet
                 </span>
               </div>
             </div>
@@ -564,10 +569,10 @@ export default function LandingPage() {
               {[
                 "✓ On-chain rounds",
                 "✓ On-chain predictions",
-                "✓ Round closing",
+                "✓ Pyth-verified prices",
                 "✓ RoundResult accounts",
-                "✓ Localnet test-point calculations",
-                "✓ Complete demo interface",
+                "✓ Live DOGE/USD chart",
+                "✓ Five-step wallet flow",
               ].map((item) => (
                 <div
                   key={item}
@@ -616,7 +621,7 @@ export default function LandingPage() {
                  PRICE ORACLE </div>
 
               <div style={styles.value}>
-                 → Experimental </div>
+                 ✓ Pyth integrated </div>
             </div>
 
             <div style={styles.statusBox}>
@@ -624,7 +629,7 @@ export default function LandingPage() {
                  RESOLUTION </div>
 
               <div style={styles.value}>
-                 → Manual round authority </div>
+                 Creator-signed · Pyth prices </div>
             </div>
           </div>
 
@@ -647,6 +652,8 @@ export default function LandingPage() {
                 "Next.js",
                 "TypeScript",
                 "Solana Web3.js",
+                "Pyth Network",
+                "Wallet Standard",
               ].map((item) => (
                 <span
                   key={item}
@@ -740,8 +747,8 @@ export default function LandingPage() {
               letterSpacing: "-2px",
             }}
           >
-             Memecoins today. <br />
-             Predictions tomorrow. </h2>
+             DOGE/USD today. <br />
+             Verifiable predictions now. </h2>
 
           <p
             style={{
@@ -755,7 +762,7 @@ export default function LandingPage() {
             href="/pyth"
             style={styles.button}
           >
-             Try the MVP </Link>
+             Try the Pyth demo </Link>
         </section>
 
         <footer style={styles.footer}>
