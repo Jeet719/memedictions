@@ -4,32 +4,33 @@
 
 Memedictions is an experimental UP/DOWN prediction app for memecoin communities. Its public Devnet demo lets a user create a timed round, register a prediction, and inspect the recorded result on Solana Explorer.
 
-**The current demo uses manually entered opening and closing prices and fictitious PTS. It does not provide oracle-backed market-price resolution, real-money stakes, or token payouts.**
+**The public Pyth demo uses verified DOGE/USD oracle prices and fictitious PTS. It does not implement real-money stakes or token payouts.**
 
 ## Try the public demo
 
-- [Open the app](https://memedictions.vercel.app/test)
+- [Open the Pyth demo](https://memedictions.vercel.app/pyth)
+- [Open the manual-price demo](https://memedictions.vercel.app/test)
 - [Visit the landing page](https://memedictions.vercel.app/landing)
 - [Browse the source](https://github.com/Jeet719/memedictions)
-- [Inspect the Devnet program](https://explorer.solana.com/address/6ePYpybRkB9EBZetcprsxXuxZbVF2xv9qcBUgd6nahfy?cluster=devnet)
+- [Inspect the Devnet program](https://explorer.solana.com/address/7Smr7aaiTiXquYeRYqGnweNoTNKMHoqtvAKQYhcJudRC?cluster=devnet)
 
-Program ID: `6ePYpybRkB9EBZetcprsxXuxZbVF2xv9qcBUgd6nahfy`
+Program ID: `7Smr7aaiTiXquYeRYqGnweNoTNKMHoqtvAKQYhcJudRC`
 
 ## Judge walkthrough
 
 1. Open the app and connect a Wallet Standard wallet. Solflare was used in the creator's public demo tests. Select Solana Devnet.
-2. Obtain test SOL from a Devnet faucet if needed. Transactions and account creation require test SOL for fees and rent.
-3. Create a market round. For a simple demonstration, choose a two-minute duration and enter an opening price of 100.
-4. Sign the creation transaction, choose UP or DOWN, assign fictitious PTS, and sign the prediction transaction.
+2. Obtain test SOL from a Devnet faucet if needed. Keep at least 0.05 Devnet SOL in the signing wallet for temporary oracle accounts, fees, and account funding.
+3. Open the DOGE/USD chart, then choose a two-minute round. Pyth supplies the opening price; the chart marker is only a visual reference.
+4. Sign the oracle preparation and round creation transactions. Choose UP or DOWN, assign fictitious PTS, and sign the prediction transaction before the timer expires.
 5. Wait until the round closes. The app uses the Solana Devnet clock to determine when resolution is allowed.
-6. Using the round creator's wallet, enter a closing price and sign the resolution transaction.
+6. Using the round creator's wallet, resolve promptly after the timer expires. Sign the oracle preparation and resolution transactions; Pyth supplies the closing quote. The API prepares resolution only within the first 40 seconds after close.
 7. Inspect the Round, Prediction, and RoundResult accounts and their transaction links before the interface starts a new cycle.
 
-PTS are test points with no monetary value. They do not represent a funded stake. The automatic interface reset starts another cycle; it does not fetch a market price or resolve a round automatically.
+PTS are test points with no monetary value. They do not represent a funded stake. After displaying the result for five seconds, the interface returns to the new-round form. This reset does not create or resolve a round automatically.
 
 ### Example outcomes
 
-| Opening input | Closing input | Prediction | Official direction | Prediction outcome |
+| Opening price | Closing price | Prediction | Official direction | Prediction outcome |
 | --- | --- | --- | --- | --- |
 | 100 | 110 | UP | UP | Correct |
 | 100 | 90 | UP | DOWN | Incorrect |
@@ -39,7 +40,9 @@ These values demonstrate the comparison rules. They are not live memecoin price 
 
 ## Public demo evidence
 
-The following references were collected by the project creator while testing the Vercel app on October 6, 2026. They provide inspectable examples of the round lifecycle, rather than adoption metrics or a security audit.
+The creator completed the public Pyth lifecycle on October 9, 2026: opening price $0.08622881, closing price $0.08616386, prediction DOWN with 100 fictitious PTS, and a correct DOWN result. The interface displayed a verified RoundResult and a Devnet resolution link.
+
+The older references below were collected from the manual-price Vercel demo on October 6, 2026. They demonstrate that version's round lifecycle and do not establish oracle validation, adoption metrics, or a security audit.
 
 ### VOID example
 
@@ -64,6 +67,8 @@ Round ID: `1791327220404`. Opening price: 80. Closing price: 110. Prediction: DO
 ## What works today
 
 - A public English interface for creating, predicting, resolving, and inspecting rounds.
+- Pyth-verified DOGE/USD opening and closing prices in `/pyth`.
+- An optional live quote chart with an opening-price reference and a visual quote marker.
 - Wallet Standard connection and wallet-signed transactions.
 - On-chain Round, Prediction, and RoundResult accounts.
 - One prediction per wallet per round, enforced through the Prediction PDA.
@@ -76,27 +81,27 @@ The creator has tested the public round lifecycle. Broader wallet compatibility,
 
 ## Resolution and trust assumptions
 
-The round creator supplies both price inputs. Only the round authority can sign its resolution transaction. The program checks the round timing and compares the supplied prices to record UP, DOWN, or VOID.
+In `/pyth`, the program verifies Pyth updates for the expected DOGE/USD feed and checks price validity and publication timing. The user does not type the official opening or closing prices.
 
-An on-chain result proves which inputs and outcome were recorded by the program. It does not authenticate those inputs against an external market-price feed. A creator may supply an inaccurate price or fail to resolve a round.
+Only the round authority can sign resolution. The demo depends on that wallet resolving within the permitted window, the price-update service, and Solana Devnet availability. It has no autonomous keeper or historical-resolution recovery.
 
-The current public release demonstrates prediction registration and result recording. Trustless market-price resolution is future work.
+The separate `/test` demo still uses creator-supplied price inputs. Its recorded result does not authenticate those inputs against an external price feed.
 
 ## Architecture
 
 1. The Next.js interface requests transaction preparation from the server API.
-2. The connected wallet signs the prepared transaction.
+2. For creation and resolution, the server fetches Pyth updates and prepares oracle and application transactions. The connected wallet signs them.
 3. The API submits the signed transaction to Solana Devnet.
 4. The Anchor program validates the instruction and creates or updates the relevant accounts.
 5. The interface reads state and presents links to Solana Explorer.
 
 | Account | PDA seeds | Purpose |
 | --- | --- | --- |
-| Round | `round`, authority, round ID encoded as little-endian bytes | Market, opening input, timing, and authority |
+| Round | `pyth_round`, authority, round ID encoded as little-endian bytes | Market, verified opening price, timing, and authority |
 | Prediction | `prediction`, round, user | Direction and fictitious points |
-| RoundResult | `round_result`, round | Closing input and computed outcome |
+| RoundResult | `round_result`, round | Verified closing price and computed outcome |
 
-The public UI uses UP/DOWN labels. Some internal identifiers retain earlier Spanish names for compatibility.
+The table describes the Pyth program. The manual program uses `round` as its Round seed. The public UI uses UP/DOWN labels. Some internal identifiers retain earlier Spanish names for compatibility.
 
 ### Technology
 
@@ -118,7 +123,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [localhost:3000/test](http://localhost:3000/test) for the app or [localhost:3000/landing](http://localhost:3000/landing) for the landing page.
+Set `PYTH_API_KEY` in `.env.local` before starting the Pyth demo. Open [localhost:3000/pyth](http://localhost:3000/pyth) for the app or [localhost:3000/landing](http://localhost:3000/landing) for the landing page.
 
 The server-side `SOLANA_DEVNET_RPC_URL` setting is optional. Without it, the app uses the public Solana Devnet RPC endpoint. Public RPC rate limits can affect requests.
 
@@ -133,9 +138,9 @@ npm run build
 
 These check TypeScript and the production frontend build. They do not replace contract tests or a security audit.
 
-## Pyth integration under local validation
+## Public Pyth integration
 
-The new `/pyth` interface has been tested locally on Solana Devnet. It has not yet replaced the public manual-price demo linked above.
+The `/pyth` interface is publicly deployed on Vercel and has completed a creator-tested Devnet round. The manual-price `/test` interface remains available separately.
 
 Program ID: `7Smr7aaiTiXquYeRYqGnweNoTNKMHoqtvAKQYhcJudRC`
 
@@ -147,7 +152,7 @@ Program ID: `7Smr7aaiTiXquYeRYqGnweNoTNKMHoqtvAKQYhcJudRC`
 
 ### Run the Pyth interface
 
-After installing the Pyth frontend changes, set `PYTH_API_KEY` in the server's `.env.local` and open `/pyth`. Keep the key server-side and out of version control. Keep at least 0.05 Devnet SOL in the signing wallet; the preparation API checks this reserve for temporary oracle accounts and fees. The server fetches updates from `https://pyth.dourolabs.app/hermes`.
+Set `PYTH_API_KEY` in the server's `.env.local` and open `/pyth`. Keep the key server-side and out of version control. Keep at least 0.05 Devnet SOL in the signing wallet; the preparation API checks this reserve for temporary oracle accounts and fees. The server fetches updates from `https://pyth.dourolabs.app/hermes`.
 
 `SOLANA_DEVNET_RPC_URL` can select a server-side Devnet RPC. `PYTH_PRIORITY_FEE_MICROLAMPORTS` defaults to 5000 and accepts integers from 0 to 50000. This configures the priority rate, not a fixed total fee.
 
@@ -159,7 +164,7 @@ The contract requires a fully verified update for the expected feed, a positive 
 
 ### Locally tested Devnet cycle
 
-The creator reported the following successful transactions on October 9, 2026. These are local frontend tests against Devnet, not evidence that `/pyth` is publicly deployed or independently audited.
+The creator reported the following successful transactions on October 9, 2026. These transactions came from local frontend tests against Devnet. Public deployment was validated separately with the round described above; neither test constitutes an independent audit.
 
 | Action | Transaction |
 | --- | --- |
@@ -185,7 +190,7 @@ This is a Devnet prototype. It has no funded prediction stakes, SPL-token payout
 
 The next priorities are:
 
-1. Complete regression testing and publish the locally tested Pyth interface.
+1. Record the live product demo and keep submission links pointed at the public Pyth interface.
 2. Validate rounds with multiple participants and additional wallets.
 3. Improve recovery when a round is not resolved within its permitted timing window.
 4. Gather independent tester feedback and measurable usage data.

@@ -323,7 +323,7 @@ export default function LandingPage() {
             </a>
 
             <Link
-              href="/test"
+              href="/pyth"
               style={styles.button}
             >
                Open demo </Link>
@@ -349,7 +349,7 @@ export default function LandingPage() {
 
           <div style={styles.actions}>
             <Link
-              href="/test"
+              href="/pyth"
               style={styles.button}
             >
                Try the MVP </Link>
@@ -395,7 +395,7 @@ export default function LandingPage() {
               [
                 "04",
                 "Resolve",
-                "The round authority enters the closing price and records the result on-chain.",
+                "The round authority signs resolution using a Pyth-verified closing quote.",
               ],
             ].map(
               ([number, title, text]) => (
@@ -589,9 +589,9 @@ export default function LandingPage() {
             moving forward. </h2>
 
           <p style={styles.sectionText}>
-             The public V2.1 MVP runs on Solana Devnet using test points.
-            Resolution uses a manually entered closing price.
-            Price-oracle integration remains experimental. </p>
+             The public Pyth MVP runs on Solana Devnet using test points.
+            DOGE/USD opening and closing prices are verified on-chain using Pyth updates.
+            A complete public round has been tested; no real-money stakes or payouts are implemented. </p>
 
           <div style={styles.statusGrid}>
             <div style={styles.statusBox}>
@@ -684,8 +684,8 @@ export default function LandingPage() {
               ],
               [
                 "03",
-                "Price oracle",
-                "Complete and validate oracle-based price resolution in the experimental version.",
+                "Resolution recovery",
+                "Improve recovery when an oracle round misses its resolution window.",
               ],
               [
                 "04",
@@ -752,7 +752,7 @@ export default function LandingPage() {
              Built on Solana. </p>
 
           <Link
-            href="/test"
+            href="/pyth"
             style={styles.button}
           >
              Try the MVP </Link>
