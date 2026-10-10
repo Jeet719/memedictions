@@ -2,11 +2,13 @@ import { Connection } from "@solana/web3.js";
 import { assertInstruction, readTransactionRequest, TransactionRequestError } from "./signed-devnet-request";
 
 export async function sendDevnetTransaction(request: Request, connectionFactory: () => Connection,
-  instruction?: { program: string; discriminator: readonly number[] }) {
+  instruction?: { program: string; discriminator: readonly number[] },
+  validate?: (body: Awaited<ReturnType<typeof readTransactionRequest>>) => Promise<void>) {
   let signature: string | undefined;
   try {
     const body = await readTransactionRequest(request);
     if (instruction) assertInstruction(body.transaction, instruction.program, instruction.discriminator);
+    if (validate) await validate(body);
     const connection = connectionFactory();
     signature = await connection.sendRawTransaction(body.raw, {
       skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 3,

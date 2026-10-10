@@ -11,6 +11,7 @@ import {
   Program,
 } from "@coral-xyz/anchor";
 
+import { authorizePythTransaction } from "@/lib/pyth-authorization";
 import idl from "@/lib/idl/memedictions_v2_2_pyth.json";
 
 export const dynamic =
@@ -279,6 +280,8 @@ export async function POST(
       blockhash,
 
       lastValidBlockHeight,
+
+      authorization: authorizePythTransaction(transaction, blockhash, lastValidBlockHeight),
 
       market:
         roundAccount.market,

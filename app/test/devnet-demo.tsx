@@ -130,6 +130,8 @@ interface PreparePredictionResponse {
 
   lastValidBlockHeight?: number;
 
+  authorization?: string;
+
   programId?: string;
 
   network?: string;
@@ -1823,6 +1825,10 @@ export default function DevnetDemo({ oracle = false }: { oracle?: boolean }) {
         );
       }
 
+      if (oracle && !prepared.authorization) {
+        throw new Error("Pyth prediction preparation did not return authorization.");
+      }
+
       setPredictionPreparing(false);
       setPredictionSending(true);
 
@@ -1907,6 +1913,8 @@ export default function DevnetDemo({ oracle = false }: { oracle?: boolean }) {
 
               lastValidBlockHeight:
                 prepared.lastValidBlockHeight,
+
+              ...(oracle ? { authorization: prepared.authorization } : {}),
             }),
           }
         );

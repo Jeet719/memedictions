@@ -1,4 +1,5 @@
 import "server-only";
+import { authorizePythTransaction } from "@/lib/pyth-authorization";
 import { BN, Program } from "@coral-xyz/anchor";
 import { Connection, PublicKey, SYSVAR_CLOCK_PUBKEY, TransactionInstruction } from "@solana/web3.js";
 import { HermesClient } from "@pythnetwork/hermes-client";
@@ -123,7 +124,8 @@ export async function preparePriceBatch(
     if (tx.instructions.some(ix => ix.programId.equals(PYTH_PROGRAM))) consumerIndex = index;
     const raw = tx.serialize({ requireAllSignatures: false, verifySignatures: true });
     if (raw.length > 1232) throw new Error("Oracle transaction exceeds the wire size limit");
-    return { transaction: Buffer.from(raw).toString("base64"), blockhash, lastValidBlockHeight };
+    return { transaction: Buffer.from(raw).toString("base64"), blockhash, lastValidBlockHeight,
+      authorization: authorizePythTransaction(tx, blockhash, lastValidBlockHeight) };
   });
   if (consumerIndex < 0 || transactions.length > 12) throw new Error("Invalid oracle batch");
   const finalTime = await chainClock(connection);
