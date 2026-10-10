@@ -108,7 +108,7 @@ The public UI uses UP/DOWN labels. Some internal identifiers retain earlier Span
 
 ## Run locally
 
-Use a Node.js version compatible with the repository dependencies. The creator's Ubuntu environment uses Node.js 22.
+Use Node.js 24 for the Pyth frontend. Its Hermes and Solana Receiver dependencies declare `^24.0.0` as their supported Node.js engine.
 
 ```bash
 git clone https://github.com/Jeet719/memedictions.git
@@ -133,11 +133,51 @@ npm run build
 
 These check TypeScript and the production frontend build. They do not replace contract tests or a security audit.
 
-## Experimental oracle work
+## Pyth integration under local validation
 
-The repository also contains V2.2 oracle experiments involving Pyth. They are separate from the manual-price public demo described above.
+The new `/pyth` interface has been tested locally on Solana Devnet. It has not yet replaced the public manual-price demo linked above.
 
-Oracle-backed resolution still requires validating price freshness, source selection, transaction integration, and end-to-end behavior. The public demo evidence in this README does not demonstrate completed oracle integration.
+Program ID: `7Smr7aaiTiXquYeRYqGnweNoTNKMHoqtvAKQYhcJudRC`
+
+- DOGE/USD opening and closing quotes come from Pyth price updates verified by the program.
+- The five steps are Connect, Create, Predict, Wait & Resolve, and Result & Verify.
+- A chart checks for quotes approximately every five seconds while open. Network latency and the feed's publication cadence can make updates slower.
+- A chart marker is a visual reference. It does not lock an entry price; the opening price is recorded when the round is created.
+- Predictions still use fictitious PTS. No funded stakes or token payouts are implemented.
+
+### Run the Pyth interface
+
+After installing the Pyth frontend changes, set `PYTH_API_KEY` in the server's `.env.local` and open `/pyth`. Keep the key server-side and out of version control. Keep at least 0.05 Devnet SOL in the signing wallet; the preparation API checks this reserve for temporary oracle accounts and fees. The server fetches updates from `https://pyth.dourolabs.app/hermes`.
+
+`SOLANA_DEVNET_RPC_URL` can select a server-side Devnet RPC. `PYTH_PRIORITY_FEE_MICROLAMPORTS` defaults to 5000 and accepts integers from 0 to 50000. This configures the priority rate, not a fixed total fee.
+
+### Resolution timing and remaining limits
+
+The timer starts when the round is created. Predict before it expires. Resolution requires the round authority's signature; it is not performed by an autonomous keeper.
+
+The contract requires a fully verified update for the expected feed, a positive price, exponent -8, and a publish time no more than 60 seconds old according to Solana's clock. A closing quote must also be published between the scheduled close and 60 seconds after it. To leave time for signing and confirmation, the API only prepares resolution during the first 40 seconds after close. An expired window currently requires a new round; historical resolution is not implemented.
+
+### Locally tested Devnet cycle
+
+The creator reported the following successful transactions on October 9, 2026. These are local frontend tests against Devnet, not evidence that `/pyth` is publicly deployed or independently audited.
+
+| Action | Transaction |
+| --- | --- |
+| Opening oracle preparation | [Explorer](https://explorer.solana.com/tx/2CLDx55Rs5q6ZwKLWzzDVzSeFQ1NQEeNmBDnoMSFaSi7WSESxWkDCmHZbmgTYWq7DXWhQ4x5UZsso4ZAswhkdKjr?cluster=devnet) |
+| Create round | [Explorer](https://explorer.solana.com/tx/59kugTqPpFqorw1MEk72UaMamib1Bc651FfVXDozqx8t4YLnGTHtzZGCQwJNChEvvUPszU2RyYhVUTmy4MfcTcGu?cluster=devnet) |
+| Submit prediction | [Explorer](https://explorer.solana.com/tx/2SfVLXxFCEuo52hV1Q4otcnbgp293TjjL4ei4nkQQXByy5WirqHY6RpZFK2dNGzmFdketL6BMgMwVPajYembaXhv?cluster=devnet) |
+| Closing oracle preparation | [Explorer](https://explorer.solana.com/tx/38u4Vdxp5oGBn4CdT6Jf41bf18FDG27DLGn1UJkpNZhpiAneDht5gBUxDmZP1nQ9Gz6kWajsZ1bczvoeWhmyeRFw?cluster=devnet) |
+| Resolve round | [Explorer](https://explorer.solana.com/tx/4x5MzEiiJZAvnQmAQ8zh5eMyrbSjQVCVvT48FvvwXHYbZ8aJwpKwWbNYWHkXcZMYRZYXxuceJsgDGTyxv55ZXV2j?cluster=devnet) |
+
+For this cycle, the five transactions charged a total network fee of 0.000059090 SOL. The wallet's net reduction was 0.003518570 SOL, including 0.003459480 SOL of non-fee account funding. Fees can vary. Temporary oracle accounts are reclaimed in the batch; persistent Round, Prediction, and RoundResult accounts currently have no rent-recovery instruction. The user's wallet pays these Devnet costs.
+
+### Dependency review
+
+The October 9 local dependency review reduced `npm audit` from 14 affected packages (7 high, 7 moderate) to 3 moderate alerts, with none rated high or critical. The remaining alerts originate in `stream-json` and propagate through `jayson` and `@solana/web3.js`; they are not three independent bugs in the app.
+
+The tested dependency lock upgrades Next.js within version 15 and uses scoped overrides for PostCSS 8.5.23, TOML 4.2.0, and UUID 11.1.1. A trial override to `stream-json` 3.6.0 broke Jayson's import paths and was removed. The remaining dependency needs a compatible upstream fix or a separately tested migration. Do not use `npm audit fix --force` on the demo without reviewing and testing the changes.
+
+TypeScript, a production build, mocked RPC access, Anchor configuration parsing, and signed create/predict/resolve instruction serialization were checked locally. These checks do not replace a real-wallet regression run, a deployed performance test, or a contract audit.
 
 ## Current limits and next steps
 
@@ -145,7 +185,7 @@ This is a Devnet prototype. It has no funded prediction stakes, SPL-token payout
 
 The next priorities are:
 
-1. Implement and test oracle-backed resolution.
+1. Complete regression testing and publish the locally tested Pyth interface.
 2. Validate rounds with multiple participants and additional wallets.
 3. Improve recovery when a round is not resolved within its permitted timing window.
 4. Gather independent tester feedback and measurable usage data.
